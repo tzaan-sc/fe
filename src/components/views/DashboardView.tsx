@@ -36,14 +36,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
           </p>
         </div>
         <button 
-          className="btn btn-secondary"
+          className="btn btn-primary"
           onClick={() => onNavigate('chunking')}
         >
           <span>Mở Chunking Studio</span>
         </button>
       </div>
 
-      {/* KPI Cards Grid (Clean, Quiet, Vercel-style) */}
+      {/* KPI Cards Grid (Academic Slate) */}
       <div className="stats-grid">
         {kpiItems.map((item, idx) => (
           <div key={idx} className="stat-card">
@@ -57,7 +57,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
       </div>
 
       {/* Analytics Charts Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '16px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: '18px' }}>
         {/* Category Distribution Card */}
         <div className="card">
           <div className="card-title">
@@ -67,18 +67,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
             {categoryStats.map((cat, i) => (
               <div key={i}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', marginBottom: '5px' }}>
-                  <span style={{ color: 'var(--text-primary)' }}>{cat.categoryName}</span>
+                  <span style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{cat.categoryName}</span>
                   <span style={{ color: 'var(--text-muted)' }}>
                     {cat.documentCount} tệp ({cat.percentage}%)
                   </span>
                 </div>
-                <div style={{ height: '6px', backgroundColor: 'var(--bg-input)', borderRadius: '3px', overflow: 'hidden' }}>
+                <div style={{ height: '7px', backgroundColor: '#f1f5f9', borderRadius: '4px', overflow: 'hidden' }}>
                   <div 
                     style={{ 
                       height: '100%', 
                       width: `${cat.percentage * 2}%`, 
-                      backgroundColor: '#3b82f6',
-                      borderRadius: '3px' 
+                      backgroundColor: i === 0 ? 'var(--accent-indigo)' : i === 1 ? 'var(--accent-emerald)' : 'var(--accent-amber)',
+                      borderRadius: '4px' 
                     }} 
                   />
                 </div>
@@ -95,20 +95,22 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
           <div style={{ display: 'flex', alignItems: 'flex-end', gap: '12px', height: '160px', paddingBottom: '16px', paddingTop: '10px' }}>
             {chunkSizeHistogram.map((bucket, i) => {
               const heightPercent = Math.round((bucket.count / maxHistogramCount) * 100);
+              const isPeak = bucket.minTokens === 257;
               return (
                 <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', justifyContent: 'flex-end', gap: '6px' }}>
-                  <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
+                  <span style={{ fontSize: '11px', color: isPeak ? 'var(--accent-indigo)' : 'var(--text-muted)', fontWeight: isPeak ? 700 : 500 }}>
                     {bucket.count}
                   </span>
                   <div 
                     style={{ 
                       width: '100%', 
                       height: `${heightPercent}%`, 
-                      backgroundColor: bucket.minTokens === 257 ? '#ffffff' : '#3f3f46',
-                      borderRadius: '2px 2px 0 0'
+                      backgroundColor: isPeak ? 'var(--accent-indigo)' : '#cbd5e1',
+                      borderRadius: '4px 4px 0 0',
+                      transition: 'height 0.2s ease'
                     }} 
                   />
-                  <span style={{ fontSize: '10px', color: 'var(--text-muted)', textAlign: 'center', whiteSpace: 'nowrap' }}>
+                  <span style={{ fontSize: '10.5px', color: 'var(--text-muted)', textAlign: 'center', whiteSpace: 'nowrap' }}>
                     {bucket.rangeLabel}
                   </span>
                 </div>
@@ -149,14 +151,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
             <tbody>
               {documents.map((doc) => (
                 <tr key={doc.id}>
-                  <td style={{ fontWeight: 500 }}>
+                  <td style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
                     {doc.fileName}
                   </td>
                   <td>
-                    <span className="badge">{doc.category}</span>
+                    <span className="badge badge-indigo">{doc.category}</span>
                   </td>
                   <td>
-                    <span className="badge">{doc.language}</span>
+                    <span className="badge badge-blue">{doc.language}</span>
                   </td>
                   <td>{doc.pageCount} trang</td>
                   <td>{(doc.fileSizeBytes / (1024 * 1024)).toFixed(1)} MB</td>

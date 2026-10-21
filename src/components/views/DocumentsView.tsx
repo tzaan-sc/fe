@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   Search, 
   BookOpen, 
-  Check,
+  Check, 
   Copy
 } from 'lucide-react';
 import mockData from '../../data/mockData.json';
@@ -70,7 +70,7 @@ Trong đó:
           </p>
         </div>
         <button 
-          className="btn btn-secondary"
+          className="btn btn-primary"
           onClick={() => onNavigate('chunking')}
         >
           <span>Mở Chunking Studio</span>
@@ -78,24 +78,24 @@ Trong đó:
       </div>
 
       {/* Main Dual Inspector Layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '16px', minHeight: '640px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '18px', minHeight: '640px' }}>
         {/* Left Panel: Document List & Search */}
-        <div className="card" style={{ display: 'flex', flexDirection: 'column', padding: '14px', gap: '10px' }}>
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', padding: '16px', gap: '12px' }}>
           {/* Search box */}
           <div style={{ position: 'relative' }}>
-            <Search size={14} style={{ position: 'absolute', left: '10px', top: '10px', color: 'var(--text-muted)' }} />
+            <Search size={14} style={{ position: 'absolute', left: '12px', top: '10px', color: 'var(--text-muted)' }} />
             <input
               type="text"
               placeholder="Tìm tài liệu..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="input-control"
-              style={{ paddingLeft: '30px', fontSize: '12.5px', height: '34px' }}
+              style={{ paddingLeft: '32px', fontSize: '13px', height: '34px' }}
             />
           </div>
 
-          <div style={{ fontSize: '11px', color: 'var(--text-muted)', padding: '0 4px' }}>
-            Tệp đã xử lý ({filteredDocs.length})
+          <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-muted)', padding: '0 4px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            Tệp đã bóc tách ({filteredDocs.length})
           </div>
 
           {/* Document Items Scroll list */}
@@ -108,16 +108,16 @@ Trong đó:
                   onClick={() => setSelectedDocId(doc.id)}
                   style={{
                     padding: '10px 12px',
-                    borderRadius: 'var(--radius-sm)',
-                    backgroundColor: isSelected ? 'var(--bg-elevated)' : 'transparent',
+                    borderRadius: 'var(--radius-md)',
+                    backgroundColor: isSelected ? 'var(--accent-indigo-subtle)' : 'transparent',
                     border: '1px solid',
-                    borderColor: isSelected ? 'var(--border-medium)' : 'transparent',
+                    borderColor: isSelected ? 'var(--accent-indigo-border)' : 'transparent',
                     cursor: 'pointer',
-                    transition: 'all 0.1s ease'
+                    transition: 'all 0.15s ease'
                   }}
                   onMouseEnter={(e) => {
                     if (!isSelected) {
-                      e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.02)';
+                      e.currentTarget.style.backgroundColor = 'var(--bg-surface-hover)';
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -127,14 +127,14 @@ Trong đó:
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                    <BookOpen size={14} color="var(--text-muted)" />
-                    <span style={{ fontSize: '13px', fontWeight: isSelected ? 500 : 400, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <BookOpen size={14} color={isSelected ? 'var(--accent-indigo)' : 'var(--text-muted)'} />
+                    <span style={{ fontSize: '13px', fontWeight: isSelected ? 600 : 500, color: isSelected ? 'var(--accent-indigo-text)' : 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {doc.fileName}
                     </span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)' }}>
                     <span>{doc.pageCount} trang</span>
-                    <span className="badge" style={{ padding: '1px 6px', fontSize: '10.5px' }}>{doc.category}</span>
+                    <span className="badge badge-indigo" style={{ padding: '1px 6px', fontSize: '10.5px' }}>{doc.category}</span>
                   </div>
                 </div>
               );
@@ -147,9 +147,9 @@ Trong đó:
           {/* Top Bar of Viewer */}
           <div 
             style={{ 
-              padding: '12px 18px', 
+              padding: '12px 20px', 
               borderBottom: '1px solid var(--border-subtle)',
-              backgroundColor: 'var(--bg-input)',
+              backgroundColor: '#f8fafc',
               display: 'flex', 
               justifyContent: 'space-between', 
               alignItems: 'center',
@@ -158,7 +158,7 @@ Trong đó:
             }}
           >
             <div>
-              <div style={{ fontSize: '13.5px', fontWeight: 500, color: 'var(--text-primary)' }}>
+              <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>
                 {selectedDoc.fileName}
               </div>
               <div style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>
@@ -168,17 +168,19 @@ Trong đó:
 
             {/* View Mode Tabs & Actions */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ display: 'flex', backgroundColor: 'var(--bg-surface)', borderRadius: '4px', padding: '2px', border: '1px solid var(--border-subtle)' }}>
+              <div style={{ display: 'flex', backgroundColor: '#e2e8f0', borderRadius: '6px', padding: '2px' }}>
                 <button
                   onClick={() => setActiveViewTab('markdown')}
                   style={{
-                    padding: '4px 10px',
-                    fontSize: '12px',
+                    padding: '4px 12px',
+                    fontSize: '12.5px',
+                    fontWeight: activeViewTab === 'markdown' ? 600 : 500,
                     border: 'none',
-                    backgroundColor: activeViewTab === 'markdown' ? 'var(--bg-elevated)' : 'transparent',
-                    color: activeViewTab === 'markdown' ? 'var(--text-primary)' : 'var(--text-muted)',
-                    borderRadius: '3px',
-                    cursor: 'pointer'
+                    backgroundColor: activeViewTab === 'markdown' ? '#ffffff' : 'transparent',
+                    color: activeViewTab === 'markdown' ? 'var(--accent-indigo)' : 'var(--text-secondary)',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    boxShadow: activeViewTab === 'markdown' ? '0 1px 2px rgba(15, 23, 42, 0.08)' : 'none'
                   }}
                 >
                   Markdown
@@ -186,13 +188,15 @@ Trong đó:
                 <button
                   onClick={() => setActiveViewTab('structured')}
                   style={{
-                    padding: '4px 10px',
-                    fontSize: '12px',
+                    padding: '4px 12px',
+                    fontSize: '12.5px',
+                    fontWeight: activeViewTab === 'structured' ? 600 : 500,
                     border: 'none',
-                    backgroundColor: activeViewTab === 'structured' ? 'var(--bg-elevated)' : 'transparent',
-                    color: activeViewTab === 'structured' ? 'var(--text-primary)' : 'var(--text-muted)',
-                    borderRadius: '3px',
-                    cursor: 'pointer'
+                    backgroundColor: activeViewTab === 'structured' ? '#ffffff' : 'transparent',
+                    color: activeViewTab === 'structured' ? 'var(--accent-indigo)' : 'var(--text-secondary)',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    boxShadow: activeViewTab === 'structured' ? '0 1px 2px rgba(15, 23, 42, 0.08)' : 'none'
                   }}
                 >
                   JSON Cấu trúc
@@ -202,25 +206,26 @@ Trong đó:
               <button 
                 onClick={handleCopy}
                 className="btn btn-secondary" 
-                style={{ padding: '4px 10px', fontSize: '12px' }}
+                style={{ padding: '5px 12px', fontSize: '12px' }}
               >
-                {copied ? <Check size={13} /> : <Copy size={13} />}
+                {copied ? <Check size={13} color="var(--accent-emerald)" /> : <Copy size={13} />}
                 <span>{copied ? 'Đã sao chép' : 'Sao chép'}</span>
               </button>
             </div>
           </div>
 
           {/* Content Viewer Body */}
-          <div style={{ flex: 1, padding: '24px 32px', overflowY: 'auto' }}>
+          <div style={{ flex: 1, padding: '28px 36px', overflowY: 'auto', backgroundColor: '#ffffff' }}>
             {activeViewTab === 'markdown' ? (
               <div 
                 style={{ 
                   maxWidth: '820px', 
                   margin: '0 auto', 
                   whiteSpace: 'pre-wrap', 
-                  fontSize: '14px', 
-                  lineHeight: '1.75', 
-                  color: 'var(--text-primary)' 
+                  fontSize: '14.5px', 
+                  lineHeight: '1.8', 
+                  color: 'var(--text-primary)',
+                  fontFamily: 'var(--font-sans)'
                 }}
               >
                 {sampleMarkdownContent}
@@ -228,13 +233,15 @@ Trong đó:
             ) : (
               <pre 
                 style={{ 
-                  backgroundColor: 'var(--bg-input)', 
-                  padding: '16px', 
-                  borderRadius: 'var(--radius-sm)', 
-                  fontSize: '12.5px', 
-                  color: 'var(--text-secondary)',
+                  backgroundColor: '#f8fafc', 
+                  padding: '18px', 
+                  borderRadius: 'var(--radius-md)', 
+                  fontSize: '13px', 
+                  color: 'var(--text-primary)',
                   overflowX: 'auto',
-                  border: '1px solid var(--border-subtle)'
+                  border: '1px solid var(--border-subtle)',
+                  fontFamily: 'var(--font-mono)',
+                  lineHeight: 1.6
                 }}
               >
                 {JSON.stringify(

@@ -2,8 +2,7 @@ import React from 'react';
 import type { NavTab } from './Sidebar';
 import { 
   FileText,
-  Layers,
-  UserCheck,
+  GraduationCap,
   SlidersHorizontal
 } from 'lucide-react';
 import type { AppPersonaMode } from '../../types';
@@ -45,7 +44,7 @@ export const Topbar: React.FC<TopbarProps> = ({
       style={{
         height: '56px',
         borderBottom: '1px solid var(--border-subtle)',
-        backgroundColor: 'var(--bg-page)',
+        backgroundColor: '#ffffff',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -60,20 +59,20 @@ export const Topbar: React.FC<TopbarProps> = ({
         <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
           {personaMode === 'USER' ? 'Cổng Tra Cứu' : 'Quản Trị Dữ Liệu'}
         </span>
-        <span style={{ color: 'var(--border-medium)', fontSize: '12px' }}>/</span>
-        <span style={{ fontSize: '13.5px', color: 'var(--text-primary)', fontWeight: 500 }}>
+        <span style={{ color: 'var(--border-medium)', fontSize: '13px' }}>/</span>
+        <span style={{ fontSize: '13.5px', color: 'var(--text-primary)', fontWeight: 600 }}>
           {getTabLabel()}
         </span>
       </div>
 
-      {/* Segmented Persona Switcher (Clean, Minimal, No Glows) */}
+      {/* Segmented Persona Switcher (Academic Slate Style) */}
       <div 
         style={{
           display: 'flex',
           alignItems: 'center',
-          backgroundColor: 'var(--bg-input)',
-          padding: '2px',
-          borderRadius: 'var(--radius-md)',
+          backgroundColor: '#f1f5f9',
+          padding: '3px',
+          borderRadius: '8px',
           border: '1px solid var(--border-subtle)'
         }}
       >
@@ -83,19 +82,19 @@ export const Topbar: React.FC<TopbarProps> = ({
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
-            padding: '5px 12px',
+            padding: '5px 14px',
             borderRadius: '6px',
-            border: 'none',
-            fontSize: '12.5px',
-            fontWeight: 500,
+            border: personaMode === 'USER' ? '1px solid var(--border-medium)' : '1px solid transparent',
+            fontSize: '13px',
+            fontWeight: personaMode === 'USER' ? 600 : 500,
             cursor: 'pointer',
-            backgroundColor: personaMode === 'USER' ? 'var(--bg-elevated)' : 'transparent',
-            color: personaMode === 'USER' ? 'var(--text-primary)' : 'var(--text-muted)',
-            boxShadow: personaMode === 'USER' ? '0 1px 2px rgba(0,0,0,0.3)' : 'none',
+            backgroundColor: personaMode === 'USER' ? '#ffffff' : 'transparent',
+            color: personaMode === 'USER' ? '#4f46e5' : 'var(--text-muted)',
+            boxShadow: personaMode === 'USER' ? '0 1px 2px rgba(15, 23, 42, 0.06)' : 'none',
             transition: 'all 0.15s ease'
           }}
         >
-          <UserCheck size={13} />
+          <GraduationCap size={15} color={personaMode === 'USER' ? '#4f46e5' : 'inherit'} />
           <span>Người Dùng</span>
         </button>
 
@@ -105,34 +104,34 @@ export const Topbar: React.FC<TopbarProps> = ({
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
-            padding: '5px 12px',
+            padding: '5px 14px',
             borderRadius: '6px',
-            border: 'none',
-            fontSize: '12.5px',
-            fontWeight: 500,
+            border: personaMode === 'TECH' ? '1px solid var(--border-medium)' : '1px solid transparent',
+            fontSize: '13px',
+            fontWeight: personaMode === 'TECH' ? 600 : 500,
             cursor: 'pointer',
-            backgroundColor: personaMode === 'TECH' ? 'var(--bg-elevated)' : 'transparent',
-            color: personaMode === 'TECH' ? 'var(--text-primary)' : 'var(--text-muted)',
-            boxShadow: personaMode === 'TECH' ? '0 1px 2px rgba(0,0,0,0.3)' : 'none',
+            backgroundColor: personaMode === 'TECH' ? '#ffffff' : 'transparent',
+            color: personaMode === 'TECH' ? '#0f172a' : 'var(--text-muted)',
+            boxShadow: personaMode === 'TECH' ? '0 1px 2px rgba(15, 23, 42, 0.06)' : 'none',
             transition: 'all 0.15s ease'
           }}
         >
-          <SlidersHorizontal size={13} />
+          <SlidersHorizontal size={14} color={personaMode === 'TECH' ? '#0f172a' : 'inherit'} />
           <span>Kỹ Thuật Viên</span>
         </button>
       </div>
 
       {/* Right Controls */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-        <div style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <Layers size={13} />
-          <span>5,640 Chunks</span>
+        <div className="badge badge-emerald" style={{ padding: '4px 10px', fontSize: '12.5px' }}>
+          <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--accent-emerald)', display: 'inline-block' }} />
+          <span><strong>5,640</strong> Chunks Đã Nạp</span>
         </div>
 
         <a
           href="#docs"
           className="btn btn-secondary"
-          style={{ padding: '5px 10px', fontSize: '12px' }}
+          style={{ padding: '5px 12px', fontSize: '12.5px' }}
           onClick={(e) => {
             e.preventDefault();
             alert('Tài liệu kỹ thuật lưu tại thư mục docs/: PAGES_SPEC.md, API_Contract.md, DATA_MODELS.md');

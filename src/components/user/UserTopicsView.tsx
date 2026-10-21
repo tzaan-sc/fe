@@ -16,18 +16,43 @@ interface UserTopicsViewProps {
 export const UserTopicsView: React.FC<UserTopicsViewProps> = ({ onSelectQuestion }) => {
   const { userTopics } = mockData;
 
-  const getTopicIcon = (id: string) => {
+  const getTopicMeta = (id: string) => {
     switch (id) {
       case 'top_search':
-        return <Search size={18} color="var(--text-secondary)" />;
+        return {
+          icon: <Search size={18} color="#4f46e5" />,
+          topBorder: '#4f46e5',
+          badgeClass: 'badge badge-indigo',
+          bgIcon: '#eef2ff'
+        };
       case 'top_csp':
-        return <Puzzle size={18} color="var(--text-secondary)" />;
+        return {
+          icon: <Puzzle size={18} color="#d97706" />,
+          topBorder: '#d97706',
+          badgeClass: 'badge badge-amber',
+          bgIcon: '#fffbeb'
+        };
       case 'top_game':
-        return <Swords size={18} color="var(--text-secondary)" />;
+        return {
+          icon: <Swords size={18} color="#e11d48" />,
+          topBorder: '#e11d48',
+          badgeClass: 'badge badge-rose',
+          bgIcon: '#fff1f2'
+        };
       case 'top_ml':
-        return <BrainCircuit size={18} color="var(--text-secondary)" />;
+        return {
+          icon: <BrainCircuit size={18} color="#059669" />,
+          topBorder: '#059669',
+          badgeClass: 'badge badge-emerald',
+          bgIcon: '#ecfdf5'
+        };
       default:
-        return <BookOpen size={18} color="var(--text-secondary)" />;
+        return {
+          icon: <BookOpen size={18} color="#4f46e5" />,
+          topBorder: '#4f46e5',
+          badgeClass: 'badge badge-indigo',
+          bgIcon: '#eef2ff'
+        };
     }
   };
 
@@ -46,62 +71,65 @@ export const UserTopicsView: React.FC<UserTopicsViewProps> = ({ onSelectQuestion
       </div>
 
       {/* Topics Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(460px, 1fr))', gap: '16px' }}>
-        {userTopics.map((topic) => (
-          <div 
-            key={topic.id}
-            className="card"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '12px',
-              padding: '20px'
-            }}
-          >
-            {/* Topic Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div 
-                  style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: 'var(--radius-sm)',
-                    backgroundColor: 'var(--bg-elevated)',
-                    border: '1px solid var(--border-subtle)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  {getTopicIcon(topic.id)}
-                </div>
-                <div>
-                  <h3 style={{ fontSize: '14.5px', fontWeight: 600, color: 'var(--text-primary)' }}>
-                    {topic.title}
-                  </h3>
-                  <span style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>
-                    {topic.category}
-                  </span>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(460px, 1fr))', gap: '20px' }}>
+        {userTopics.map((topic) => {
+          const meta = getTopicMeta(topic.id);
+          return (
+            <div 
+              key={topic.id}
+              className="card"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+                padding: '22px',
+                borderTop: `4px solid ${meta.topBorder}`,
+                backgroundColor: '#ffffff'
+              }}
+            >
+              {/* Topic Header */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div 
+                    style={{
+                      width: '38px',
+                      height: '38px',
+                      borderRadius: 'var(--radius-md)',
+                      backgroundColor: meta.bgIcon,
+                      border: '1px solid var(--border-subtle)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    {meta.icon}
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '15.5px', fontWeight: 600, color: 'var(--text-primary)' }}>
+                      {topic.title}
+                    </h3>
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '3px' }}>
+                      <span className={meta.badgeClass}>
+                        {topic.sampleQuestions.length} câu hỏi mẫu
+                      </span>
+                      <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+                        {topic.chunkCount} chunks liên quan
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <span style={{ fontSize: '11.5px', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                {topic.chunkCount} chunks
-              </span>
-            </div>
+              {/* Description */}
+              <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                {topic.description}
+              </p>
 
-            {/* Description */}
-            <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
-              {topic.description}
-            </p>
-
-            {/* Sample Questions */}
-            <div style={{ marginTop: 'auto', paddingTop: '12px', borderTop: '1px solid var(--border-subtle)' }}>
-              <div style={{ fontSize: '11px', fontWeight: 500, color: 'var(--text-muted)', marginBottom: '8px' }}>
-                Câu hỏi tra cứu mẫu:
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {/* Sample Questions */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '4px' }}>
+                <span style={{ fontSize: '11.5px', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                  Câu hỏi thường gặp trong kỳ thi:
+                </span>
                 {topic.sampleQuestions.map((q, idx) => (
                   <button
                     key={idx}
@@ -110,31 +138,38 @@ export const UserTopicsView: React.FC<UserTopicsViewProps> = ({ onSelectQuestion
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      textAlign: 'left',
-                      padding: '7px 10px',
-                      borderRadius: 'var(--radius-sm)',
-                      backgroundColor: 'var(--bg-input)',
+                      padding: '9px 14px',
+                      borderRadius: 'var(--radius-md)',
+                      backgroundColor: '#f8fafc',
                       border: '1px solid var(--border-subtle)',
-                      color: 'var(--text-primary)',
-                      fontSize: '12.5px',
+                      color: 'var(--text-secondary)',
+                      fontSize: '13px',
                       cursor: 'pointer',
-                      transition: 'border-color 0.15s ease'
+                      textAlign: 'left',
+                      transition: 'all 0.15s ease',
+                      fontFamily: 'var(--font-sans)'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'var(--border-medium)';
+                      e.currentTarget.style.backgroundColor = '#ffffff';
+                      e.currentTarget.style.borderColor = meta.topBorder;
+                      e.currentTarget.style.color = 'var(--text-primary)';
+                      e.currentTarget.style.boxShadow = 'var(--shadow-card)';
                     }}
                     onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#f8fafc';
                       e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                      e.currentTarget.style.color = 'var(--text-secondary)';
+                      e.currentTarget.style.boxShadow = 'none';
                     }}
                   >
                     <span>{q}</span>
-                    <ArrowRight size={12} color="var(--text-muted)" style={{ flexShrink: 0, marginLeft: '8px' }} />
+                    <ArrowRight size={14} color={meta.topBorder} />
                   </button>
                 ))}
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

@@ -47,8 +47,8 @@ export const PlaygroundView: React.FC = () => {
       <div className="page-header">
         <div>
           <h2 className="page-title">
-            <Sparkles size={28} color="var(--accent-purple)" />
-            RAG Playground — Kiểm Thử Truy Xuất (Semantic Retrieval)
+            <Sparkles size={22} color="var(--accent-indigo)" />
+            <span>RAG Playground — Kiểm Thử Truy Xuất (Semantic Retrieval)</span>
           </h2>
           <p className="page-desc">
             Nhập câu hỏi để thử nghiệm độ chính xác của các phân đoạn tri thức đã chia khi được hệ thống RAG tìm kiếm.
@@ -57,10 +57,10 @@ export const PlaygroundView: React.FC = () => {
       </div>
 
       {/* Query Input Section */}
-      <div className="card" style={{ border: '1px solid rgba(168, 85, 247, 0.3)', boxShadow: '0 0 25px rgba(168, 85, 247, 0.08)' }}>
+      <div className="card">
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
           <div style={{ position: 'relative', flex: 1 }}>
-            <Search size={18} style={{ position: 'absolute', left: '14px', top: '15px', color: 'var(--accent-purple)' }} />
+            <Search size={18} style={{ position: 'absolute', left: '14px', top: '15px', color: 'var(--accent-indigo)' }} />
             <input
               type="text"
               placeholder="Nhập câu hỏi kiểm thử (ví dụ: Thuật toán A* hoạt động như thế nào?)..."
@@ -68,7 +68,7 @@ export const PlaygroundView: React.FC = () => {
               onChange={(e) => setQueryInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               className="input-control"
-              style={{ paddingLeft: '44px', height: '48px', fontSize: '15px', borderColor: 'rgba(168, 85, 247, 0.3)' }}
+              style={{ paddingLeft: '44px', height: '48px', fontSize: '14px' }}
             />
           </div>
           <button 
@@ -78,19 +78,17 @@ export const PlaygroundView: React.FC = () => {
             style={{ 
               height: '48px', 
               padding: '0 24px', 
-              fontSize: '14px',
-              background: 'linear-gradient(135deg, #a855f7 0%, #6366f1 100%)',
-              boxShadow: '0 2px 12px rgba(168, 85, 247, 0.4)'
+              fontSize: '14px'
             }}
           >
-            {isSearching ? <Sparkles size={18} className="animate-spin" /> : <Search size={18} />}
-            <span>{isSearching ? 'Đang truy xuất...' : 'Truy Xuất (Retrieve)'}</span>
+            {isSearching ? <Sparkles size={16} className="animate-spin" /> : <Search size={16} />}
+            <span>{isSearching ? 'Đang truy xuất...' : 'Truy xuất (Retrieve)'}</span>
           </button>
         </div>
 
         {/* Suggested Queries Chips */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '14px', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: '12px', color: 'var(--text-dim)', fontWeight: 600 }}>Gợi ý test nhanh:</span>
+          <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600 }}>Gợi ý test nhanh:</span>
           {sampleQueries.map((q, i) => (
             <button
               key={i}
@@ -99,22 +97,24 @@ export const PlaygroundView: React.FC = () => {
                 handleSearch();
               }}
               style={{
-                fontSize: '12px',
-                padding: '4px 10px',
-                borderRadius: '9999px',
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid var(--border-subtle)',
-                color: 'var(--text-muted)',
+                fontSize: '12.5px',
+                padding: '4px 12px',
+                borderRadius: '6px',
+                backgroundColor: '#f8fafc',
+                border: '1px solid var(--border-medium)',
+                color: 'var(--text-secondary)',
                 cursor: 'pointer',
                 transition: 'all 0.15s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--accent-purple)';
-                e.currentTarget.style.color = '#fff';
+                e.currentTarget.style.borderColor = 'var(--accent-indigo)';
+                e.currentTarget.style.color = 'var(--accent-indigo)';
+                e.currentTarget.style.backgroundColor = 'var(--accent-indigo-subtle)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'var(--border-subtle)';
-                e.currentTarget.style.color = 'var(--text-muted)';
+                e.currentTarget.style.borderColor = 'var(--border-medium)';
+                e.currentTarget.style.color = 'var(--text-secondary)';
+                e.currentTarget.style.backgroundColor = '#f8fafc';
               }}
             >
               {q}
@@ -123,30 +123,30 @@ export const PlaygroundView: React.FC = () => {
         </div>
       </div>
 
-      {/* AI Synthesized Answer (Optional RAG Preview) */}
+      {/* AI Synthesized Answer (Perplexity Vibe) */}
       <div 
         className="card" 
         style={{ 
-          background: 'linear-gradient(145deg, rgba(19, 29, 51, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)',
-          border: '1px solid rgba(56, 189, 248, 0.3)'
+          backgroundColor: '#ffffff',
+          borderLeft: '4px solid var(--accent-indigo)'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-          <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(56, 189, 248, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-cyan)' }}>
+          <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: 'var(--accent-indigo-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-indigo)' }}>
             <Bot size={18} />
           </div>
           <div>
-            <div style={{ fontSize: '14px', fontWeight: 700, color: '#fff' }}>Câu Trả Lời Tổng Hợp Từ Context (RAG Synthesis)</div>
-            <div style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Dựa trên {results.length} chunks trích xuất có điểm tương đồng cao nhất</div>
+            <div style={{ fontSize: '14.5px', fontWeight: 600, color: 'var(--text-primary)' }}>Câu Trả Lời Tổng Hợp Từ Context (RAG Synthesis)</div>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Dựa trên {results.length} chunks trích xuất có điểm tương đồng cao nhất</div>
           </div>
         </div>
 
-        <div style={{ fontSize: '14px', color: '#cbd5e1', lineHeight: '1.7', backgroundColor: 'var(--bg-input)', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
+        <div style={{ fontSize: '14px', color: 'var(--text-primary)', lineHeight: '1.75', backgroundColor: '#f8fafc', padding: '16px 20px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
           <p>
-            Thuật toán <strong>A* Search</strong> là giải thuật tìm kiếm heuristic tốt nhất dựa trên hàm đánh giá <code style={{ color: '#38bdf8' }}>f(n) = g(n) + h(n)</code>, kết hợp giữa chi phí thực tế từ điểm xuất phát <code style={{ color: '#38bdf8' }}>g(n)</code> và chi phí ước lượng tới đích <code style={{ color: '#38bdf8' }}>h(n)</code>.
+            Thuật toán <strong>A* Search</strong> là giải thuật tìm kiếm heuristic tối ưu dựa trên hàm đánh giá <code style={{ color: 'var(--accent-indigo)', fontWeight: 600 }}>f(n) = g(n) + h(n)</code>, kết hợp giữa chi phí thực tế từ điểm xuất phát <code style={{ color: 'var(--accent-indigo)', fontWeight: 600 }}>g(n)</code> và chi phí ước lượng tới đích <code style={{ color: 'var(--accent-indigo)', fontWeight: 600 }}>h(n)</code>.
           </p>
           <p style={{ marginTop: '8px' }}>
-            <strong>Điều kiện tối ưu:</strong> Trên đồ thị cây (Tree Search), heuristic <code style={{ color: '#38bdf8' }}>h(n)</code> phải <em>admissible</em> (không bao giờ ước lượng vượt quá chi phí thực tế). Trên đồ thị tổng quát (Graph Search), heuristic cần thỏa mãn tính <em>consistent</em> (đơn điệu).
+            <strong>Điều kiện tối ưu:</strong> Trên đồ thị cây (Tree Search), heuristic <code style={{ color: 'var(--accent-indigo)', fontWeight: 600 }}>h(n)</code> phải <em>admissible</em> (không bao giờ ước lượng vượt quá chi phí thực tế). Trên đồ thị tổng quát (Graph Search), heuristic cần thỏa mãn tính <em>consistent</em> (đơn điệu).
           </p>
         </div>
       </div>
@@ -155,20 +155,19 @@ export const PlaygroundView: React.FC = () => {
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Layers size={18} color="var(--accent-cyan)" />
-            <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#fff' }}>
+            <Layers size={18} color="var(--accent-indigo)" />
+            <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>
               Top Chunks Được Truy Xuất (Similarity Ranking)
             </h3>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'var(--text-muted)' }}>
             <Clock size={14} color="var(--accent-emerald)" />
-            <span>Thời gian truy xuất: <strong style={{ color: '#fff' }}>{sampleRetrievalTest.executionTimeMs} ms</strong></span>
+            <span>Thời gian truy xuất: <strong style={{ color: 'var(--text-primary)' }}>{sampleRetrievalTest.executionTimeMs} ms</strong></span>
           </div>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {results.map((item, idx) => {
-            const scorePercent = Math.round(item.similarityScore * 100);
             const isCopied = copiedId === item.chunk.id;
             return (
               <div 
@@ -178,61 +177,42 @@ export const PlaygroundView: React.FC = () => {
                   display: 'flex', 
                   flexDirection: 'column', 
                   gap: '12px',
-                  border: idx === 0 ? '1px solid var(--accent-cyan)' : '1px solid var(--border-subtle)'
+                  borderLeft: idx === 0 ? '4px solid var(--accent-emerald)' : '1px solid var(--border-subtle)'
                 }}
               >
                 {/* Chunk Header info */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span 
-                      style={{ 
-                        fontSize: '12px', 
-                        fontWeight: 700, 
-                        color: idx === 0 ? '#000' : '#fff', 
-                        backgroundColor: idx === 0 ? 'var(--accent-cyan)' : 'var(--bg-input)',
-                        padding: '3px 10px', 
-                        borderRadius: '4px',
-                        border: idx === 0 ? 'none' : '1px solid var(--border-subtle)'
-                      }}
-                    >
+                    <span className={idx === 0 ? 'badge badge-emerald' : 'badge badge-indigo'}>
                       Top #{idx + 1}
                     </span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 600, color: '#fff' }}>
-                      <BookOpen size={15} color="var(--accent-cyan)" />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13.5px', fontWeight: 600, color: 'var(--text-primary)' }}>
+                      <BookOpen size={15} color="var(--accent-indigo)" />
                       <span>{item.documentTitle}</span>
                     </div>
                   </div>
 
                   {/* Similarity Score Indicator */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontSize: '12px', color: 'var(--text-dim)' }}>Độ tương đồng:</span>
-                      <span style={{ fontSize: '14px', fontWeight: 800, color: scorePercent >= 90 ? 'var(--accent-emerald)' : 'var(--accent-cyan)' }}>
-                        {item.similarityScore.toFixed(3)} ({scorePercent}%)
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Khớp:</span>
+                      <span className="badge badge-emerald" style={{ fontSize: '12px' }}>
+                        {(item.similarityScore * 100).toFixed(1)}%
                       </span>
-                    </div>
-                    <div style={{ width: '80px', height: '6px', backgroundColor: 'var(--border-subtle)', borderRadius: '3px', overflow: 'hidden' }}>
-                      <div 
-                        style={{ 
-                          width: `${scorePercent}%`, 
-                          height: '100%', 
-                          background: scorePercent >= 90 ? 'linear-gradient(90deg, #10b981, #06b6d4)' : 'linear-gradient(90deg, #06b6d4, #3b82f6)'
-                        }} 
-                      />
                     </div>
                   </div>
                 </div>
 
                 {/* Section Path Tags */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: 'var(--text-muted)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'var(--text-muted)' }}>
                   <span>Vị trí:</span>
                   {item.chunk.metadata.sectionPath.map((sec, sIdx) => (
                     <span key={sIdx} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                      {sIdx > 0 && <ArrowRight size={10} color="var(--text-dim)" />}
-                      <span style={{ color: 'var(--text-main)', fontWeight: 500 }}>{sec}</span>
+                      {sIdx > 0 && <ArrowRight size={10} color="var(--text-muted)" />}
+                      <span style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{sec}</span>
                     </span>
                   ))}
-                  <span style={{ marginLeft: '8px', color: 'var(--accent-cyan)' }}>
+                  <span style={{ marginLeft: '8px', color: 'var(--accent-indigo)', fontWeight: 500 }}>
                     • Trang {item.chunk.metadata.pageStart}-{item.chunk.metadata.pageEnd}
                   </span>
                 </div>
@@ -240,10 +220,10 @@ export const PlaygroundView: React.FC = () => {
                 {/* Content snippet */}
                 <div 
                   style={{ 
-                    fontSize: '13.5px', 
-                    color: '#e2e8f0', 
-                    lineHeight: '1.6', 
-                    backgroundColor: 'var(--bg-input)',
+                    fontSize: '14px', 
+                    color: 'var(--text-primary)', 
+                    lineHeight: '1.7', 
+                    backgroundColor: '#f8fafc',
                     padding: '14px 18px',
                     borderRadius: 'var(--radius-md)',
                     border: '1px solid var(--border-subtle)',
@@ -258,7 +238,7 @@ export const PlaygroundView: React.FC = () => {
                   <button
                     onClick={() => handleCopyChunk(item.chunk.id, item.chunk.content)}
                     className="btn btn-secondary"
-                    style={{ fontSize: '11.5px', padding: '5px 10px' }}
+                    style={{ fontSize: '12px', padding: '5px 12px' }}
                   >
                     {isCopied ? <CheckCircle2 size={13} color="var(--accent-emerald)" /> : <Copy size={13} />}
                     <span>{isCopied ? 'Đã sao chép' : 'Sao chép đoạn'}</span>

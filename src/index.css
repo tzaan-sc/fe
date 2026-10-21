@@ -1,42 +1,76 @@
-/* Design System: Refined Modern SaaS (Phong cách Linear / Vercel / Stripe)
-   Loại bỏ hoàn toàn hiệu ứng hào quang neon (glow), gradient đa sắc lòe loẹt 
-   Tập trung vào bố cục thực tế, typography tinh tế, tone màu trung tính sang trọng */
+/* Design System: Academic Slate & Knowledge Library (Perplexity & Academic Slate)
+   - Tone sáng dịu mắt pha xanh chàm (Indigo) và xanh lá (Emerald) cho các đoạn trích dẫn và nhãn sách
+   - Nền Slate-50 (#f8fafc) êm dịu, không chói mắt khi đọc tài liệu lâu
+   - Thẻ card trắng tinh khôi (#ffffff), viền Slate-200 (#e2e8f0) sắc nét
+   - Chữ Slate-900 (#0f172a) tương phản cao tuyệt đối, không nhạt nhòa */
 
 :root {
-  /* Neutral Palette (Slate/Zinc Dark) */
-  --bg-page: #09090b;
-  --bg-sidebar: #0d0d11;
-  --bg-surface: #131317;
-  --bg-surface-hover: #191920;
-  --bg-input: #111115;
-  --bg-elevated: #1a1a22;
+  /* Slate Neutral Backgrounds */
+  --bg-page: #f8fafc;          /* Slate-50: Nền trang dịu mắt, học thuật */
+  --bg-sidebar: #ffffff;       /* Sidebar trắng tinh khiết hoặc slate nhẹ */
+  --bg-surface: #ffffff;       /* Thẻ / Bề mặt trắng tinh khôi */
+  --bg-surface-hover: #f1f5f9; /* Slate-100 khi hover */
+  --bg-input: #ffffff;
+  --bg-elevated: #f8fafc;
 
-  --border-subtle: #222228;
-  --border-medium: #2e2e36;
-  --border-focus: #4b4b58;
+  /* Crisp Slate Hairline Borders */
+  --border-subtle: #e2e8f0;    /* Slate-200: Viền mảnh rõ nét */
+  --border-medium: #cbd5e1;    /* Slate-300: Viền input, nút phân định */
+  --border-focus: #4f46e5;     /* Indigo-600 khi focus */
 
-  --text-primary: #f4f4f5;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --text-faint: #52525b;
+  /* Academic Slate Typography */
+  --text-primary: #0f172a;     /* Slate-900: Đen than đậm sắc sảo, siêu rõ */
+  --text-secondary: #334155;   /* Slate-700: Chữ phụ đọc thoải mái */
+  --text-muted: #64748b;       /* Slate-500: Chú thích, thông tin bên lề */
+  --text-faint: #94a3b8;       /* Slate-400 */
 
-  /* Restrained Accents (Không dùng neon lòe loẹt) */
-  --accent-primary: #ffffff;
-  --accent-primary-text: #09090b;
-  --accent-blue: #3b82f6;
-  --accent-emerald: #10b981;
-  --accent-amber: #f59e0b;
-  --accent-rose: #ef4444;
+  /* Academic Indigo (Màu thương hiệu / Điều hướng tri thức) */
+  --accent-indigo: #4f46e5;
+  --accent-indigo-hover: #4338ca;
+  --accent-indigo-subtle: #eef2ff;
+  --accent-indigo-border: #c7d2fe;
+  --accent-indigo-text: #3730a3;
+
+  /* Knowledge Emerald (Màu trích dẫn giáo trình / Đối soát chính xác) */
+  --accent-emerald: #059669;
+  --accent-emerald-hover: #047857;
+  --accent-emerald-subtle: #ecfdf5;
+  --accent-emerald-border: #a7f3d0;
+  --accent-emerald-text: #065f46;
+
+  /* Scholarly Amber (Màu cảnh báo token / Lưu ý học thuật) */
+  --accent-amber: #d97706;
+  --accent-amber-subtle: #fffbeb;
+  --accent-amber-border: #fde68a;
+  --accent-amber-text: #92400e;
+
+  /* Tech Blue / Sky (Phân đoạn / Khối dữ liệu) */
+  --accent-blue: #2563eb;
+  --accent-blue-subtle: #eff6ff;
+  --accent-blue-border: #bfdbfe;
+  --accent-blue-text: #1d4ed8;
+
+  /* Purple (Công thức toán / Chuyên đề mở rộng) */
+  --accent-purple: #7c3aed;
+  --accent-purple-subtle: #faf5ff;
+  --accent-purple-border: #ddd6fe;
+  --accent-purple-text: #6d28d9;
+
+  /* Rose (Kiểm định lỗi / Cảnh báo) */
+  --accent-rose: #e11d48;
+  --accent-rose-subtle: #fff1f2;
+  --accent-rose-border: #fecdd3;
+  --accent-rose-text: #9f1239;
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
 
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
 
-  --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-dropdown: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-subtle);
+  --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
+  --shadow-dropdown: 0 10px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
 }
 
 * {
@@ -51,9 +85,8 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  letter-spacing: -0.01em;
 }
 
 #root {
@@ -62,23 +95,23 @@ body {
   width: 100%;
 }
 
-/* Custom Scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #94a3b8;
 }
 
-/* Base Layout */
+/* Layout */
 .app-container {
   display: flex;
   width: 100%;
@@ -94,17 +127,17 @@ body {
 }
 
 .page-wrapper {
-  padding: 32px 40px;
+  padding: 28px 36px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  max-width: 1300px;
+  gap: 22px;
+  max-width: 1280px;
   width: 100%;
   margin: 0 auto;
 }
 
-/* Header & Titles */
+/* Titles */
 .page-header {
   display: flex;
   justify-content: space-between;
@@ -114,8 +147,8 @@ body {
 }
 
 .page-title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 21px;
+  font-weight: 700;
   color: var(--text-primary);
   display: flex;
   align-items: center;
@@ -129,13 +162,14 @@ body {
   margin-top: 4px;
 }
 
-/* Clean Card Component (Không bóng mờ neon) */
+/* Crisp Academic Card System */
 .card {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 24px;
-  transition: border-color 0.15s ease;
+  padding: 22px;
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .card:hover {
@@ -143,16 +177,16 @@ body {
 }
 
 .card-title {
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 600;
   color: var(--text-primary);
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
-/* Clean Metrics Grid */
+/* Metrics Grid */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -166,62 +200,107 @@ body {
   padding: 16px 18px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  transition: border-color 0.15s ease;
+  gap: 4px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.15s ease, border-color 0.15s ease;
 }
 
 .stat-card:hover {
-  border-color: var(--border-medium);
+  border-color: var(--accent-indigo-border);
+  transform: translateY(-1px);
 }
 
 .stat-value {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 26px;
+  font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   font-family: var(--font-sans);
 }
 
 .stat-label {
   font-size: 12.5px;
   color: var(--text-muted);
-  font-weight: 400;
+  font-weight: 500;
 }
 
-/* Subtle Professional Badges (Không dùng màu chói) */
+/* Academic Badges & Citation Tags */
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 11.5px;
-  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
   line-height: 1.4;
-  border: 1px solid var(--border-subtle);
-  background: var(--bg-input);
-  color: var(--text-secondary);
+  border: 1px solid transparent;
 }
 
-.badge-blue {
-  background: rgba(59, 130, 246, 0.08);
-  color: #60a5fa;
-  border-color: rgba(59, 130, 246, 0.2);
+.badge-indigo {
+  background: var(--accent-indigo-subtle);
+  color: var(--accent-indigo-text);
+  border-color: var(--accent-indigo-border);
 }
 
 .badge-emerald {
-  background: rgba(16, 185, 129, 0.08);
-  color: #34d399;
-  border-color: rgba(16, 185, 129, 0.2);
+  background: var(--accent-emerald-subtle);
+  color: var(--accent-emerald-text);
+  border-color: var(--accent-emerald-border);
 }
 
-/* Clean Buttons (Phong cách Vercel / Linear) */
+.badge-amber {
+  background: var(--accent-amber-subtle);
+  color: var(--accent-amber-text);
+  border-color: var(--accent-amber-border);
+}
+
+.badge-blue {
+  background: var(--accent-blue-subtle);
+  color: var(--accent-blue-text);
+  border-color: var(--accent-blue-border);
+}
+
+.badge-purple {
+  background: var(--accent-purple-subtle);
+  color: var(--accent-purple-text);
+  border-color: var(--accent-purple-border);
+}
+
+.badge-rose {
+  background: var(--accent-rose-subtle);
+  color: var(--accent-rose-text);
+  border-color: var(--accent-rose-border);
+}
+
+/* Citation Chip (Perplexity Style) */
+.citation-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background-color: var(--accent-emerald-subtle);
+  border: 1px solid var(--accent-emerald-border);
+  color: var(--accent-emerald-text);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.citation-chip:hover {
+  background-color: #d1fae5;
+  border-color: #6ee7b7;
+}
+
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 7px;
-  padding: 7px 14px;
+  padding: 8px 16px;
   border-radius: var(--radius-md);
   font-size: 13px;
   font-weight: 500;
@@ -232,25 +311,38 @@ body {
 }
 
 .btn-primary {
-  background: #ffffff;
-  color: #09090b;
-  border: 1px solid #ffffff;
+  background: var(--accent-indigo);
+  color: #ffffff;
+  border: 1px solid var(--accent-indigo-hover);
+  box-shadow: 0 1px 2px 0 rgba(79, 70, 229, 0.25);
 }
 
 .btn-primary:hover {
-  background: #e4e4e7;
-  border-color: #e4e4e7;
+  background: var(--accent-indigo-hover);
+  border-color: #3730a3;
+}
+
+.btn-emerald {
+  background: var(--accent-emerald);
+  color: #ffffff;
+  border: 1px solid #047857;
+  box-shadow: 0 1px 2px 0 rgba(5, 150, 105, 0.25);
+}
+
+.btn-emerald:hover {
+  background: #047857;
 }
 
 .btn-secondary {
-  background: var(--bg-surface);
+  background: #ffffff;
   color: var(--text-primary);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border-medium);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
 }
 
 .btn-secondary:hover {
   background: var(--bg-surface-hover);
-  border-color: var(--border-medium);
+  border-color: #94a3b8;
 }
 
 .btn-ghost {
@@ -264,37 +356,41 @@ body {
   color: var(--text-primary);
 }
 
-/* Inputs & Form Controls */
+/* Inputs */
 .input-control {
   background: var(--bg-input);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border-medium);
   border-radius: var(--radius-md);
-  padding: 8px 12px;
+  padding: 8px 14px;
   color: var(--text-primary);
   font-size: 13.5px;
   outline: none;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
   width: 100%;
 }
 
 .input-control:focus {
   border-color: var(--border-focus);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
 }
 
 /* Tables */
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 13.5px;
 }
 
 .data-table th {
-  color: var(--text-muted);
-  font-weight: 500;
+  color: var(--text-secondary);
+  font-weight: 600;
   text-align: left;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--border-subtle);
-  font-size: 11.5px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-medium);
+  background: #f8fafc;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .data-table td {
@@ -305,10 +401,9 @@ body {
 }
 
 .data-table tr:hover td {
-  background: rgba(255, 255, 255, 0.015);
+  background: #f8fafc;
 }
 
-/* Code & Pre */
 pre, code {
   font-family: var(--font-mono);
 }

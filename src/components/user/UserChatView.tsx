@@ -4,9 +4,11 @@ import {
   BookOpen, 
   Copy, 
   Check, 
-  ExternalLink,
-  X,
-  FileText
+  ExternalLink, 
+  X, 
+  FileText,
+  BookmarkCheck,
+  Sparkles
 } from 'lucide-react';
 import type { ChatMessage, Citation } from '../../types';
 
@@ -19,14 +21,14 @@ export const UserChatView: React.FC<UserChatViewProps> = ({ initialQuery = '' })
     {
       id: 'msg_1',
       sender: 'assistant',
-      content: `Hệ thống đã lập chỉ mục **48 tài liệu học thuật** môn Trí tuệ Nhân tạo (sách kinh điển, giáo trình và bài giảng MIT, UC Berkeley).
+      content: `Hệ thống đã lập chỉ mục **48 tài liệu học thuật** môn Trí tuệ Nhân tạo (sách kinh điển, giáo trình ĐH Bách Khoa, ĐHQG, bài giảng MIT và UC Berkeley).
 
-Mỗi câu trả lời sẽ tự động đối soát và trích dẫn trực tiếp từ các đoạn phân đoạn (chunks) trong kho tài liệu. Bạn có thể đặt câu hỏi về giải thuật tìm kiếm, CSP, lý thuyết trò chơi hoặc học máy.`,
+Mọi câu trả lời đều được **trích dẫn số trang và tên sách cụ thể** để bạn đối soát. Bạn có thể đặt câu hỏi về giải thuật tìm kiếm, CSP, lý thuyết trò chơi hoặc học máy.`,
       timestamp: '14:30',
       suggestedFollowUps: [
         'Thuật toán A* hoạt động như thế nào và điều kiện tối ưu?',
         'Hàm heuristic admissible khác consistent như thế nào?',
-        'Nguyên lý cắt tỉa Alpha-Beta trong Minimax'
+        'Nguyên lý cắt tỉa Alpha-Beta trong trò chơi đối kháng'
       ]
     }
   ]);
@@ -108,28 +110,29 @@ Trong đó:
   };
 
   return (
-    <div className="page-wrapper" style={{ maxWidth: '900px', margin: '0 auto', gap: '20px' }}>
-      {/* Scope Filter Bar (Quiet & Functional) */}
+    <div className="page-wrapper" style={{ maxWidth: '920px', margin: '0 auto', gap: '20px' }}>
+      {/* Scope Filter Bar (Academic Slate Style) */}
       <div 
         style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: '10px 14px',
-          backgroundColor: 'var(--bg-surface)',
+          padding: '12px 18px',
+          backgroundColor: '#ffffff',
           borderRadius: 'var(--radius-md)',
           border: '1px solid var(--border-subtle)',
+          boxShadow: 'var(--shadow-card)',
           fontSize: '13px'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <BookOpen size={15} color="var(--text-muted)" />
-          <span style={{ color: 'var(--text-secondary)' }}>Nguồn tra cứu:</span>
+          <BookOpen size={16} color="var(--accent-indigo)" />
+          <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>Nguồn tra cứu:</span>
           <select
             value={knowledgeScope}
             onChange={(e) => setKnowledgeScope(e.target.value)}
             className="input-control"
-            style={{ width: 'auto', padding: '4px 8px', fontSize: '12.5px', height: '28px' }}
+            style={{ width: 'auto', padding: '5px 12px', fontSize: '13px', height: '34px', borderColor: 'var(--border-medium)' }}
           >
             <option value="ALL">Toàn bộ 48 giáo trình & bài giảng</option>
             <option value="VI_TEXTBOOKS">Giáo trình tiếng Việt (ĐH Bách Khoa, ĐHQG)</option>
@@ -138,9 +141,9 @@ Trong đó:
           </select>
         </div>
 
-        <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-          Index: 5,640 chunks
-        </span>
+        <div className="badge badge-indigo">
+          <span>Kho tài liệu: <strong>5,640 chunks</strong></span>
+        </div>
       </div>
 
       {/* Messages Stream */}
@@ -150,7 +153,7 @@ Trong đó:
           flexDirection: 'column',
           gap: '24px',
           minHeight: '440px',
-          maxHeight: '600px',
+          maxHeight: '620px',
           overflowY: 'auto',
           paddingRight: '6px'
         }}
@@ -168,34 +171,36 @@ Trong đó:
               }}
             >
               {/* Sender label & time */}
-              <div style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>
-                {isUser ? 'Bạn' : 'Hệ thống'} • {msg.timestamp}
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+                {isUser ? 'Bạn' : 'Hệ thống tra cứu'} • {msg.timestamp}
               </div>
 
               {/* Message Box */}
               <div 
                 style={{
                   maxWidth: isUser ? '80%' : '100%',
-                  backgroundColor: isUser ? 'var(--bg-elevated)' : 'var(--bg-surface)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: 'var(--radius-md)',
-                  padding: '16px 20px',
-                  color: 'var(--text-primary)',
-                  fontSize: '14px',
-                  lineHeight: '1.7',
-                  whiteSpace: 'pre-line'
+                  backgroundColor: isUser ? 'var(--accent-indigo-subtle)' : '#ffffff',
+                  border: isUser ? '1px solid var(--accent-indigo-border)' : '1px solid var(--border-subtle)',
+                  borderRadius: 'var(--radius-lg)',
+                  padding: '18px 22px',
+                  color: isUser ? 'var(--accent-indigo-text)' : 'var(--text-primary)',
+                  fontSize: '14.5px',
+                  lineHeight: '1.75',
+                  whiteSpace: 'pre-line',
+                  boxShadow: 'var(--shadow-card)'
                 }}
               >
                 {msg.content}
 
-                {/* Academic Footnotes / Citations */}
+                {/* Academic Footnotes / Citations (Perplexity Style with Emerald) */}
                 {msg.citations && msg.citations.length > 0 && (
-                  <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid var(--border-subtle)' }}>
-                    <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '8px' }}>
-                      Nguồn tham chiếu từ kho tài liệu:
+                  <div style={{ marginTop: '18px', paddingTop: '14px', borderTop: '1px solid var(--border-subtle)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 600, color: 'var(--accent-emerald-text)', marginBottom: '10px' }}>
+                      <BookmarkCheck size={14} color="var(--accent-emerald)" />
+                      <span>NGUỒN THAM CHIẾU ĐỐI SOÁT TỪ GIÁO TRÌNH:</span>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                       {msg.citations.map((cite, cIdx) => (
                         <div
                           key={cite.id}
@@ -204,29 +209,39 @@ Trong đó:
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            padding: '8px 12px',
-                            borderRadius: '4px',
-                            backgroundColor: 'var(--bg-input)',
-                            border: '1px solid var(--border-subtle)',
+                            padding: '10px 14px',
+                            borderRadius: '8px',
+                            backgroundColor: '#ffffff',
+                            border: '1px solid var(--accent-emerald-border)',
                             cursor: 'pointer',
-                            fontSize: '12.5px',
-                            transition: 'border-color 0.15s ease'
+                            fontSize: '13px',
+                            transition: 'all 0.15s ease'
                           }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.borderColor = 'var(--border-medium)';
+                            e.currentTarget.style.backgroundColor = 'var(--accent-emerald-subtle)';
+                            e.currentTarget.style.borderColor = 'var(--accent-emerald)';
                           }}
                           onMouseLeave={(e) => {
-                            e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                            e.currentTarget.style.backgroundColor = '#ffffff';
+                            e.currentTarget.style.borderColor = 'var(--accent-emerald-border)';
                           }}
                         >
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span style={{ color: 'var(--text-muted)', fontSize: '11.5px' }}>[{cIdx + 1}]</span>
-                            <span style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{cite.documentTitle}</span>
-                            <span style={{ color: 'var(--text-muted)' }}>— Trang {cite.pageNumber}</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <span style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '13px' }}>
+                              [{cIdx + 1}]
+                            </span>
+                            <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
+                              {cite.documentTitle}
+                            </span>
+                            <span style={{ color: 'var(--text-muted)' }}>
+                              — Trang {cite.pageNumber}
+                            </span>
                           </div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text-muted)', fontSize: '11.5px' }}>
-                            <span>Xem trích đoạn</span>
-                            <ExternalLink size={12} />
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <span className="badge badge-emerald" style={{ fontSize: '11.5px', padding: '2px 8px' }}>
+                              {(cite.similarityScore * 100).toFixed(1)}% khớp
+                            </span>
+                            <ExternalLink size={13} color="var(--accent-emerald)" />
                           </div>
                         </div>
                       ))}
@@ -237,31 +252,39 @@ Trong đó:
 
               {/* Follow-up Question Chips */}
               {msg.suggestedFollowUps && (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '6px' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '4px' }}>
                   {msg.suggestedFollowUps.map((q, qIdx) => (
                     <button
                       key={qIdx}
                       onClick={() => handleSend(q)}
                       style={{
-                        fontSize: '12px',
-                        padding: '4px 10px',
-                        borderRadius: '4px',
-                        backgroundColor: 'transparent',
-                        border: '1px solid var(--border-subtle)',
+                        fontSize: '12.5px',
+                        padding: '6px 14px',
+                        borderRadius: '8px',
+                        backgroundColor: '#ffffff',
+                        border: '1px solid var(--border-medium)',
                         color: 'var(--text-secondary)',
                         cursor: 'pointer',
-                        transition: 'all 0.15s ease'
+                        transition: 'all 0.15s ease',
+                        boxShadow: '0 1px 2px rgba(15, 23, 42, 0.03)',
+                        fontFamily: 'var(--font-sans)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = 'var(--border-medium)';
-                        e.currentTarget.style.color = 'var(--text-primary)';
+                        e.currentTarget.style.borderColor = 'var(--accent-indigo)';
+                        e.currentTarget.style.color = 'var(--accent-indigo)';
+                        e.currentTarget.style.backgroundColor = 'var(--accent-indigo-subtle)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                        e.currentTarget.style.borderColor = 'var(--border-medium)';
                         e.currentTarget.style.color = 'var(--text-secondary)';
+                        e.currentTarget.style.backgroundColor = '#ffffff';
                       }}
                     >
-                      {q}
+                      <Sparkles size={12} color="var(--accent-indigo)" />
+                      <span>{q}</span>
                     </button>
                   ))}
                 </div>
@@ -271,22 +294,24 @@ Trong đó:
         })}
 
         {isTyping && (
-          <div style={{ fontSize: '12.5px', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 0' }}>
-            <span>Đang tra cứu và trích xuất tài liệu...</span>
+          <div style={{ fontSize: '13px', color: 'var(--accent-indigo)', display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 0', fontWeight: 500 }}>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--accent-indigo)', display: 'inline-block' }} />
+            <span>Đang tra cứu và trích xuất tài liệu đối soát...</span>
           </div>
         )}
       </div>
 
-      {/* Input Form Bar (Clean, Minimal, No Neon Shadows) */}
+      {/* Input Form Bar (Crisp Academic Style) */}
       <div 
         style={{
           display: 'flex',
-          gap: '8px',
+          gap: '10px',
           alignItems: 'center',
-          backgroundColor: 'var(--bg-surface)',
-          borderRadius: 'var(--radius-md)',
-          padding: '6px',
-          border: '1px solid var(--border-subtle)'
+          backgroundColor: '#ffffff',
+          borderRadius: 'var(--radius-lg)',
+          padding: '8px 14px',
+          border: '1px solid var(--border-medium)',
+          boxShadow: 'var(--shadow-card)'
         }}
       >
         <input
@@ -296,16 +321,16 @@ Trong đó:
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
           className="input-control"
-          style={{ border: 'none', backgroundColor: 'transparent', height: '38px', fontSize: '13.5px' }}
+          style={{ border: 'none', backgroundColor: 'transparent', height: '42px', fontSize: '14px', boxShadow: 'none' }}
         />
         <button
           onClick={() => handleSend()}
           disabled={!input.trim()}
           className="btn btn-primary"
-          style={{ height: '36px', padding: '0 16px' }}
+          style={{ height: '40px', padding: '0 20px', borderRadius: '8px' }}
         >
-          <Send size={14} />
-          <span>Gửi</span>
+          <Send size={15} />
+          <span>Gửi câu hỏi</span>
         </button>
       </div>
 
@@ -315,7 +340,7 @@ Trong đó:
           style={{
             position: 'fixed',
             inset: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            backgroundColor: 'rgba(15, 23, 42, 0.4)',
             backdropFilter: 'blur(3px)',
             display: 'flex',
             alignItems: 'center',
@@ -327,69 +352,100 @@ Trong đó:
         >
           <div
             style={{
-              width: '560px',
+              width: '620px',
               maxWidth: '100%',
-              backgroundColor: 'var(--bg-surface)',
-              borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--border-medium)',
+              backgroundColor: '#ffffff',
+              borderRadius: 'var(--radius-lg)',
+              border: '1px solid var(--border-subtle)',
               boxShadow: 'var(--shadow-dropdown)',
-              padding: '24px',
+              padding: '28px',
               display: 'flex',
               flexDirection: 'column',
-              gap: '16px'
+              gap: '18px'
             }}
             onClick={(e) => e.stopPropagation()}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <FileText size={18} color="var(--text-secondary)" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div 
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '8px',
+                    backgroundColor: 'var(--accent-emerald-subtle)',
+                    border: '1px solid var(--accent-emerald-border)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'var(--accent-emerald)'
+                  }}
+                >
+                  <FileText size={16} />
+                </div>
                 <div>
                   <h3 style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-primary)' }}>
-                    Trích đoạn tài liệu gốc
+                    {activeCitation.documentTitle}
                   </h3>
-                  <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-                    {activeCitation.documentTitle} — Trang {activeCitation.pageNumber}
+                  <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
+                    <span className="badge badge-emerald">
+                      Trang {activeCitation.pageNumber}
+                    </span>
+                    <span className="badge badge-indigo">
+                      Mã chunk: {activeCitation.chunkId}
+                    </span>
+                    <span className="badge badge-blue">
+                      {(activeCitation.similarityScore * 100).toFixed(1)}% tương đồng
+                    </span>
                   </div>
                 </div>
               </div>
               <button
                 onClick={() => setActiveCitation(null)}
-                style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}
+                className="btn btn-ghost"
+                style={{ padding: '6px', borderRadius: '4px' }}
               >
-                <X size={18} />
+                <X size={16} />
               </button>
             </div>
 
-            <div 
+            {/* Snippet Content */}
+            <div
               style={{
-                backgroundColor: 'var(--bg-input)',
-                padding: '14px',
-                borderRadius: '4px',
-                fontSize: '13px',
-                lineHeight: '1.7',
-                color: 'var(--text-primary)',
+                backgroundColor: 'var(--bg-page)',
+                padding: '18px 20px',
+                borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--border-subtle)',
-                fontStyle: 'italic'
+                fontSize: '14px',
+                lineHeight: 1.7,
+                color: 'var(--text-primary)',
+                fontStyle: 'normal',
+                borderLeft: '4px solid var(--accent-emerald)'
               }}
             >
-              "{activeCitation.snippet}"
+              {activeCitation.snippet}
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+            {/* Actions */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+                Đoạn trích được trích xuất trực tiếp qua pipeline bóc tách văn bản MinerU.
+              </span>
               <button
-                onClick={() => handleCopy('cite_modal', activeCitation.snippet)}
+                onClick={() => handleCopy(activeCitation.id, activeCitation.snippet)}
                 className="btn btn-secondary"
-                style={{ fontSize: '12px', padding: '6px 12px' }}
+                style={{ fontSize: '12.5px' }}
               >
-                {copiedId === 'cite_modal' ? <Check size={13} /> : <Copy size={13} />}
-                <span>{copiedId === 'cite_modal' ? 'Đã sao chép' : 'Sao chép đoạn trích'}</span>
-              </button>
-              <button
-                onClick={() => setActiveCitation(null)}
-                className="btn btn-primary"
-                style={{ fontSize: '12px', padding: '6px 12px' }}
-              >
-                Đóng
+                {copiedId === activeCitation.id ? (
+                  <>
+                    <Check size={13} color="var(--accent-emerald)" />
+                    <span>Đã sao chép</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={13} />
+                    <span>Sao chép đoạn trích</span>
+                  </>
+                )}
               </button>
             </div>
           </div>

@@ -9,7 +9,7 @@ import {
   DownloadCloud, 
   ChevronLeft,
   ChevronRight,
-  Database
+  Library
 } from 'lucide-react';
 import type { AppPersonaMode } from '../../types';
 
@@ -56,8 +56,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <aside 
       style={{
-        width: collapsed ? '68px' : '240px',
-        backgroundColor: 'var(--bg-sidebar)',
+        width: collapsed ? '68px' : '248px',
+        backgroundColor: '#ffffff',
         borderRight: '1px solid var(--border-subtle)',
         display: 'flex',
         flexDirection: 'column',
@@ -72,45 +72,45 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Brand Header */}
       <div 
         style={{
-          padding: '18px 20px',
+          padding: '16px 20px',
           display: 'flex',
           alignItems: 'center',
-          gap: '10px',
+          gap: '12px',
           borderBottom: '1px solid var(--border-subtle)'
         }}
       >
         <div 
           style={{
-            width: '28px',
-            height: '28px',
-            borderRadius: 'var(--radius-sm)',
-            backgroundColor: 'var(--bg-elevated)',
-            border: '1px solid var(--border-medium)',
+            width: '34px',
+            height: '34px',
+            borderRadius: '8px',
+            backgroundColor: '#4f46e5',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: 'var(--text-primary)',
+            color: '#ffffff',
+            boxShadow: '0 2px 5px rgba(79, 70, 229, 0.25)',
             flexShrink: 0
           }}
         >
-          <Database size={15} />
+          <Library size={17} />
         </div>
         {!collapsed && (
           <div style={{ overflow: 'hidden' }}>
-            <span style={{ fontSize: '13.5px', fontWeight: 600, color: 'var(--text-primary)', display: 'block', lineHeight: 1.2 }}>
-              RAG Platform
+            <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-primary)', display: 'block', lineHeight: 1.2 }}>
+              RAG Academic
             </span>
-            <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
-              Trí tuệ nhân tạo
+            <span style={{ fontSize: '11px', color: 'var(--accent-indigo)', fontWeight: 500 }}>
+              {personaMode === 'USER' ? 'Cổng Học Tập AI' : 'Xưởng Kỹ Thuật RAG'}
             </span>
           </div>
         )}
       </div>
 
       {/* Navigation List */}
-      <nav style={{ padding: '14px 10px', flex: 1, display: 'flex', flexDirection: 'column', gap: '3px' }}>
-        <div style={{ fontSize: '11px', fontWeight: 500, color: 'var(--text-muted)', padding: '0 8px 6px' }}>
-          {!collapsed && (personaMode === 'USER' ? 'HỌC TẬP' : 'QUẢN TRỊ')}
+      <nav style={{ padding: '16px 12px', flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-muted)', padding: '0 8px 6px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+          {!collapsed && (personaMode === 'USER' ? 'MỤC LỤC TRA CỨU' : 'QUẢN TRỊ DỮ LIỆU')}
         </div>
 
         {currentNavItems.map((item) => {
@@ -122,34 +122,35 @@ export const Sidebar: React.FC<SidebarProps> = ({
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '10px',
-                padding: '8px 10px',
+                gap: '12px',
+                padding: '9px 12px',
                 width: '100%',
-                borderRadius: 'var(--radius-sm)',
-                backgroundColor: isActive ? 'var(--bg-surface-hover)' : 'transparent',
-                color: isActive ? 'var(--text-primary)' : 'var(--text-muted)',
-                border: 'none',
+                borderRadius: 'var(--radius-md)',
+                backgroundColor: isActive ? 'var(--accent-indigo-subtle)' : 'transparent',
+                color: isActive ? 'var(--accent-indigo-text)' : 'var(--text-secondary)',
+                border: '1px solid',
+                borderColor: isActive ? 'var(--accent-indigo-border)' : 'transparent',
                 cursor: 'pointer',
-                fontSize: '13px',
-                fontWeight: isActive ? 500 : 400,
+                fontSize: '13.5px',
+                fontWeight: isActive ? 600 : 500,
                 textAlign: 'left',
-                transition: 'all 0.1s ease',
+                transition: 'all 0.15s ease',
                 fontFamily: 'var(--font-sans)'
               }}
               onMouseEnter={(e) => {
                 if (!isActive) {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-surface-hover)';
                   e.currentTarget.style.color = 'var(--text-primary)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isActive) {
                   e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = 'var(--text-muted)';
+                  e.currentTarget.style.color = 'var(--text-secondary)';
                 }
               }}
             >
-              <div style={{ color: isActive ? 'var(--text-primary)' : 'inherit', flexShrink: 0 }}>
+              <div style={{ color: isActive ? '#4f46e5' : 'var(--text-muted)', flexShrink: 0 }}>
                 {item.icon}
               </div>
               {!collapsed && (
@@ -163,7 +164,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Toggle Collapse Button */}
       <div 
         style={{
-          padding: '12px 14px',
+          padding: '12px 16px',
           borderTop: '1px solid var(--border-subtle)',
           display: 'flex',
           justifyContent: collapsed ? 'center' : 'flex-end'
