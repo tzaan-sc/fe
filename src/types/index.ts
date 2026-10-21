@@ -1,18 +1,48 @@
-// Types definition for RAG Dataset Builder Studio
+// Types definition for RAG Dataset Builder & AI Knowledge Assistant
 
-export type DocumentCategory = 
-  | 'BK' // Sách tham khảo (Book)
-  | 'TX' // Giáo trình học thuật (Textbook)
-  | 'PP' // Bài báo khoa học (Paper)
-  | 'TH' // Luận văn, đồ án (Thesis)
-  | 'TR' // Báo cáo kỹ thuật (Technical Report)
-  | 'SL' // Slide bài giảng (Slides)
-  | 'LN' // Ghi chép học tập (Lecture Notes)
-  | 'GD' // Hướng dẫn (Guides/Tutorials)
-  | 'UM'; // Tài liệu ĐH Quốc tế (MIT, Berkeley, Cornell...)
+export type AppPersonaMode = 'USER' | 'TECH';
 
+// End-User Types
+export interface Citation {
+  id: string;
+  chunkId: string;
+  documentTitle: string;
+  pageNumber: number;
+  snippet: string;
+  similarityScore: number;
+}
+
+export interface ChatMessage {
+  id: string;
+  sender: 'user' | 'assistant';
+  content: string;
+  timestamp: string;
+  citations?: Citation[];
+  suggestedFollowUps?: string[];
+}
+
+export interface TopicItem {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  chunkCount: number;
+  sampleQuestions: string[];
+}
+
+export interface QuizQuestion {
+  id: string;
+  topicTitle: string;
+  question: string;
+  options: string[];
+  correctAnswerIndex: number;
+  explanation: string;
+  sourceCitation: Citation;
+}
+
+// Technician Types
+export type DocumentCategory = 'BK' | 'TX' | 'PP' | 'TH' | 'TR' | 'SL' | 'LN' | 'GD' | 'UM';
 export type LanguageCode = 'EN' | 'VI';
-
 export type PipelineStatus = 'PENDING' | 'PARSING' | 'CHUNKING' | 'COMPLETED' | 'FAILED';
 
 export interface Document {
@@ -75,27 +105,4 @@ export interface ChunkSizeHistogramBucket {
   minTokens: number;
   maxTokens: number;
   count: number;
-}
-
-export type ChunkingStrategy = 'HEADING' | 'SEMANTIC' | 'PARENT_CHILD' | 'FIXED_WINDOW';
-
-export interface ChunkingConfig {
-  documentId: string;
-  strategy: ChunkingStrategy;
-  maxTokens: number;
-  overlapTokens: number;
-  keepTablesIntact: boolean;
-  keepMathIntact: boolean;
-}
-
-export interface ScoredChunk {
-  chunk: Chunk;
-  documentTitle: string;
-  similarityScore: number;
-}
-
-export interface RetrievalQueryResponse {
-  query: string;
-  executionTimeMs: number;
-  results: ScoredChunk[];
 }

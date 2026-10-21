@@ -1,13 +1,12 @@
 # 📑 QUY CHUẨN KẾT NỐI API (API CONTRACT)
-**Dự án:** RAG Dataset Builder Studio  
-**Phụ trách:** Frontend $\leftrightarrow$ Backend / Database  
+**Dự án:** RAG Dataset Builder & AI Knowledge Assistant  
+**Hệ thống:** Frontend $\leftrightarrow$ Backend / Database  
 
 ---
 
 ## 1. Quy Chuẩn Chung
 - **Base URL:** `http://localhost:8000/api/v1`
 - **Format dữ liệu:** `application/json`
-- **Chuẩn đặt tên field:** `camelCase` (ví dụ: `chunkSize`, `totalItems`, `createdAt`)
 - **Cấu trúc Response thống nhất:**
 ```json
 {
@@ -21,33 +20,61 @@
 
 ---
 
-## 2. Danh Sách Endpoint Cho Từng Trang
+## 2. Phân Hệ Người Dùng Cuối (End-User APIs)
 
-### A. Màn hình Dashboard (`/dashboard`)
-* `GET /analytics/overview`: Lấy các thẻ KPI (tổng tài liệu, tổng trang, tổng chunks, số công thức toán, số bảng).
-* `GET /analytics/distribution`: Dữ liệu biểu đồ phân bổ thể loại tài liệu (Sách, Slide, Giáo trình, ĐH Quốc tế).
-* `GET /analytics/chunk-size-histogram`: Dữ liệu phân phối độ dài token của các chunk.
+### A. Trợ Lý Hỏi Đáp Chatbot RAG (`/chat`)
+* `POST /chat/completions`: Gửi câu hỏi và nhận câu trả lời tổng hợp kèm trích dẫn nguồn.
+  - **Request Body:**
+  ```json
+  {
+    "message": "Thuật toán A* là gì và điều kiện tối ưu?",
+    "knowledgeScope": "ALL", // "ALL" | "VI_TEXTBOOKS" | "INTL_UNIVERSITIES" | "PAPERS"
+    "conversationHistory": []
+  }
+  ```
+  - **Response 200:**
+  ```json
+  {
+    "answer": "Thuật toán A* là giải thuật tìm kiếm heuristic...",
+    "citations": [
+      {
+        "id": "cite_1",
+        "documentTitle": "EN_BK_001_AI Agents in Depth.pdf",
+        "pageNumber": 45,
+        "chunkId": "chk_1001",
+        "snippet": "The most widely known form of best-first search is called A* search..."
+      }
+    ]
+  }
+  ```
 
-### B. Màn hình Quản lý Tài liệu (`/documents`)
-* `GET /documents`: Lấy danh sách tài liệu (hỗ trợ phân trang và filter theo `category`, `language`).
-* `POST /documents/upload`: Tải lên file PDF gốc mới (`multipart/form-data`).
-* `GET /documents/:id/preview`: Lấy đường dẫn file PDF và nội dung Markdown đã bóc tách từ MinerU.
-* `GET /documents/:id/structured`: Lấy dữ liệu JSON cấu trúc chi tiết (`structured_content.json`).
+### B. Khám Phá Chủ Đề Môn AI (`/topics`)
+* `GET /topics`: Lấy danh sách các chủ đề AI cốt lõi kèm số lượng chunks và câu hỏi gợi ý.
 
-### C. Màn hình Chunking Studio (`/chunking`)
-* `POST /chunking/preview`: Chạy thử nghiệm chia chunk với các tham số tạm thời (không lưu database).
-  - **Body:** `{ documentId: string, strategy: "heading" | "semantic" | "parent-child", chunkSize: number, overlap: number }`
-  - **Response:** Danh sách các chunks kèm vị trí ký tự và metadata để FE highlight.
-* `POST /chunking/apply`: Áp dụng chiến lược và lưu các chunk chính thức vào cơ sở dữ liệu.
+### C. Ôn Tập Trắc Nghiệm (`/quiz`)
+* `GET /quiz/questions?topic=SEARCH`: Lấy danh sách câu hỏi trắc nghiệm tự động sinh từ các chunk dữ liệu.
+* `POST /quiz/submit`: Nộp đáp án và nhận giải thích chi tiết kèm trích dẫn chunk tương ứng.
 
-### D. Màn hình Xuất Dữ Liệu (`/export`)
-* `GET /chunks`: Lấy danh sách toàn bộ chunks có phân trang, tìm kiếm.
-* `GET /chunks/validation-report`: Lấy báo cáo các chunk bất thường (quá ngắn, thiếu metadata).
-* `GET /export/chunks-jsonl`: Tải về file `chunks.jsonl`.
-* `GET /export/parents-jsonl`: Tải về file `parents.jsonl`.
-* `GET /export/stats-json`: Tải về file `chunk_stats.json`.
+---
 
-### E. Màn hình Playground (`/playground`)
-* `POST /retrieval/query`: Truy vấn thử nghiệm tìm kiếm ngữ nghĩa.
-  - **Body:** `{ query: "Thuật toán A* hoạt động như thế nào?", topK: 5 }`
-  - **Response:** Trả về Top 5 chunks có độ tương đồng cao nhất kèm metadata và similarity score.
+## 3. Phân Hệ Kỹ Thuật Viên (Technician & Admin APIs)
+
+### A. Dashboard & Thống Kê
+* `GET /analytics/overview`: Lấy chỉ số KPI kho tài liệu.
+* `GET /analytics/distribution`: Biểu đồ phân bổ thể loại tài liệu.
+* `GET /analytics/chunk-size-histogram`: Phân phối độ dài token của các chunk.
+
+### B. Quản Lý Tài Liệu
+* `GET /documents`: Danh sách tài liệu có phân trang và bộ lọc.
+* `POST /documents/upload`: Tải lên tài liệu PDF mới.
+* `GET /documents/:id/preview`: Lấy file PDF và Markdown bóc tách từ MinerU.
+
+### C. Chunking Studio
+* `POST /chunking/preview`: Chạy thử nghiệm chia chunk với tham số động.
+* `POST /chunking/apply`: Lưu các chunk chính thức vào cơ sở dữ liệu.
+
+### D. Kiểm Định & Xuất Dữ Liệu
+* `GET /chunks`: Danh sách chunks có tìm kiếm.
+* `GET /export/chunks-jsonl`: Tải tệp `chunks.jsonl`.
+* `GET /export/parents-jsonl`: Tải tệp `parents.jsonl`.
+* `GET /export/stats-json`: Tải tệp `chunk_stats.json`.

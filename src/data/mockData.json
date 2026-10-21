@@ -115,6 +115,118 @@
       "createdAt": "2026-10-15T09:12:00Z"
     }
   ],
+  "userTopics": [
+    {
+      "id": "top_search",
+      "title": "Chiến Lược Tìm Kiếm (Search)",
+      "category": "Cốt lõi AI",
+      "description": "Các giải thuật tìm kiếm mù (BFS, DFS, UCS) và tìm kiếm heuristic thông minh (A*, IDA*, Hill Climbing).",
+      "chunkCount": 1420,
+      "sampleQuestions": [
+        "Thuật toán A* là gì và vì sao cần hàm Heuristic admissible?",
+        "So sánh độ phức tạp thời gian và không gian của BFS và DFS",
+        "Khi nào thuật toán UCS (Uniform Cost Search) tương đương với BFS?"
+      ]
+    },
+    {
+      "id": "top_csp",
+      "title": "Bài Toán Ràng Buộc (CSP)",
+      "category": "Suy diễn & Tối ưu",
+      "description": "Giải quyết bài toán thỏa mãn ràng buộc với quay lui (Backtracking), kiểm tra cung AC-3 và MRV heuristic.",
+      "chunkCount": 850,
+      "sampleQuestions": [
+        "Cơ chế lọc cung AC-3 (Arc Consistency) trong CSP hoạt động như thế nào?",
+        "Heuristic MRV (Minimum Remaining Values) giúp tăng tốc độ tìm kiếm ra sao?"
+      ]
+    },
+    {
+      "id": "top_game",
+      "title": "Lý Thuyết Trò Chơi (Adversarial Search)",
+      "category": "Trò chơi trí tuệ",
+      "description": "Thuật toán Minimax, kỹ thuật cắt tỉa Alpha-Beta và hàm lượng giá trạng thái tĩnh trong cờ vua, cờ ca-rô.",
+      "chunkCount": 640,
+      "sampleQuestions": [
+        "Giải thích điều kiện cắt tỉa Alpha-Beta trong thuật toán Minimax",
+        "Vì sao thứ tự xét các nước đi ảnh hưởng lớn đến hiệu quả cắt tỉa Alpha-Beta?"
+      ]
+    },
+    {
+      "id": "top_ml",
+      "title": "Học Máy & Mạng Nơ-ron (ML / Deep Learning)",
+      "category": "Hiện đại",
+      "description": "Gradient Descent, Hồi quy tuyến tính, Mạng nơ-ron truyền thẳng và cơ chế Attention trong Transformer.",
+      "chunkCount": 1820,
+      "sampleQuestions": [
+        "Cơ chế Self-Attention trong bài báo Attention Is All You Need hoạt động ra sao?",
+        "Giải thích vai trò của hàm mất mát (Loss Function) và đạo hàm Gradient Descent"
+      ]
+    }
+  ],
+  "sampleQuiz": [
+    {
+      "id": "q1",
+      "topicTitle": "Chiến Lược Tìm Kiếm A*",
+      "question": "Trong thuật toán tìm kiếm A*, hàm đánh giá trạng thái f(n) được tính toán theo công thức nào sau đây?",
+      "options": [
+        "f(n) = g(n) - h(n)",
+        "f(n) = g(n) + h(n)",
+        "f(n) = max(g(n), h(n))",
+        "f(n) = g(n) * h(n)"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "Trong A* Search, f(n) = g(n) + h(n), trong đó g(n) là chi phí thực tế đã đi từ điểm bắt đầu đến n, còn h(n) là chi phí ước lượng từ n đến đích.",
+      "sourceCitation": {
+        "id": "cite_q1",
+        "chunkId": "chk_1001",
+        "documentTitle": "EN_BK_001_AI Agents in Depth.pdf",
+        "pageNumber": 45,
+        "snippet": "It evaluates nodes by combining g(n), the cost to reach the node, and h(n), the cost to get from the node to the goal: f(n) = g(n) + h(n).",
+        "similarityScore": 0.985
+      }
+    },
+    {
+      "id": "q2",
+      "topicTitle": "Tính Tối Ưu Của Heuristic",
+      "question": "Một hàm heuristic h(n) được gọi là 'admissible' (chấp nhận được) khi nào?",
+      "options": [
+        "Khi h(n) luôn lớn hơn chi phí thực tế đến đích",
+        "Khi h(n) không bao giờ đánh giá vượt quá (overestimate) chi phí thực tế nhỏ nhất đến đích",
+        "Khi h(n) luôn bằng 0 với mọi nút",
+        "Khi h(n) có thể nhận giá trị âm"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "Hàm heuristic admissible không bao giờ đánh giá vượt quá chi phí thực tế: h(n) <= h*(n). Đây là điều kiện tiên quyết để A* đạt tính tối ưu trên đồ thị cây.",
+      "sourceCitation": {
+        "id": "cite_q2",
+        "chunkId": "chk_1002",
+        "documentTitle": "EN_BK_001_AI Agents in Depth.pdf",
+        "pageNumber": 46,
+        "snippet": "An admissible heuristic is one that never overestimates the cost to reach the goal.",
+        "similarityScore": 0.972
+      }
+    },
+    {
+      "id": "q3",
+      "topicTitle": "Cắt Tỉa Alpha-Beta",
+      "question": "Mục đích chính của kỹ thuật cắt tỉa Alpha-Beta (Alpha-Beta Pruning) trong thuật toán Minimax là gì?",
+      "options": [
+        "Tìm ra nước đi tốt hơn nước đi của Minimax",
+        "Bỏ qua các nhánh cây tìm kiếm không ảnh hưởng đến quyết định cuối cùng, giúp tăng tốc độ tìm kiếm",
+        "Chuyển trò chơi từ có tổng bằng 0 thành trò chơi hợp tác",
+        "Tăng độ sâu tìm kiếm vô hạn mà không tốn bộ nhớ"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "Alpha-Beta Pruning trả về chính xác nước đi tối ưu giống hệt Minimax chuẩn, nhưng loại bỏ các nhánh vô nghĩa để tiết kiệm thời gian tính toán.",
+      "sourceCitation": {
+        "id": "cite_q3",
+        "chunkId": "chk_1003",
+        "documentTitle": "VI_TX_001_Tri tue nhan tao he chuyen gia.pdf",
+        "pageNumber": 78,
+        "snippet": "Cắt tỉa Alpha-Beta cho phép loại bỏ các nhánh không thể ảnh hưởng tới quyết định của nút gốc.",
+        "similarityScore": 0.960
+      }
+    }
+  ],
   "sampleRetrievalTest": {
     "query": "Thuật toán A* là gì và điều kiện tối ưu?",
     "executionTimeMs": 42,
@@ -126,7 +238,7 @@
           "id": "chk_1001",
           "documentId": "doc_001",
           "chunkIndex": 12,
-          "content": "### 3.2 Heuristic Search Strategies: The A* Algorithm\n\nThe most widely known form of best-first search is called **A* search**. It evaluates nodes by combining $g(n)$, the cost to reach the node, and $h(n)$, the cost to get from the node to the goal:\n\n$$f(n) = g(n) + h(n)$$",
+          "content": "### 3.2 Heuristic Search Strategies: The A* Algorithm\n\nThe most widely known form of best-first search is called A* search.",
           "tokenCount": 138,
           "characterCount": 492,
           "metadata": {
@@ -135,28 +247,6 @@
             "sectionPath": ["Chapter 3: Solving Problems by Searching", "3.2 Informed Search Strategies", "A* Search"],
             "headingLevel": 3,
             "hasTable": false,
-            "hasEquation": true,
-            "imageRefs": []
-          },
-          "createdAt": "2026-10-15T09:12:00Z"
-        }
-      },
-      {
-        "documentTitle": "EN_BK_001_AI Agents in Depth.pdf",
-        "similarityScore": 0.887,
-        "chunk": {
-          "id": "chk_1002",
-          "documentId": "doc_001",
-          "chunkIndex": 13,
-          "content": "### Conditions for Optimality: Admissibility and Consistency\n\nThe first condition we require for optimality is that $h(n)$ be an **admissible heuristic**.",
-          "tokenCount": 175,
-          "characterCount": 580,
-          "metadata": {
-            "pageStart": 46,
-            "pageEnd": 47,
-            "sectionPath": ["Chapter 3: Solving Problems by Searching", "3.2 Informed Search Strategies", "Optimality"],
-            "headingLevel": 3,
-            "hasTable": true,
             "hasEquation": true,
             "imageRefs": []
           },
