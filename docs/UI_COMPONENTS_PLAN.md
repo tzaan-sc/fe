@@ -9,19 +9,17 @@
 src/
 ├── components/
 │   ├── layout/
-│   │   ├── Topbar.tsx            # Header với nút Mode Switcher (User Portal ⟷ Tech Studio)
-│   │   ├── UserSidebar.tsx       # Sidebar cho Người dùng cuối (Chat, Topics, Quiz)
-│   │   └── TechSidebar.tsx       # Sidebar cho Kỹ thuật viên (Dashboard, Documents, Chunking, Export)
-│   ├── user/                     # Component dành riêng cho Người Dùng Cuối
-│   │   ├── ChatInterface.tsx     # Khung chat với bong bóng hội thoại & citations
-│   │   ├── CitationDrawer.tsx    # Modal/Drawer xem chi tiết trang sách & trích dẫn
-│   │   ├── TopicsExplorer.tsx    # Danh mục các chủ đề AI cốt lõi
-│   │   └── QuizInterface.tsx     # Trắc nghiệm tự kiểm tra kiến thức môn AI
-│   └── views/                    # Màn hình Kỹ thuật viên
-│       ├── DashboardView.tsx
-│       ├── DocumentsView.tsx
-│       ├── ChunkingStudioView.tsx
-│       └── ExportView.tsx
+│   │   ├── Topbar.tsx            # Header với nút Dual-Persona Switcher (User ⟷ Tech)
+│   │   └── Sidebar.tsx           # Thanh điều hướng thích ứng theo Persona
+│   ├── user/                     # Phân hệ Người Dùng Cuối
+│   │   ├── UserChatView.tsx      # Khung chat với bong bóng hội thoại & citations
+│   │   ├── UserTopicsView.tsx    # Danh mục chuyên đề AI cốt lõi & câu hỏi mẫu
+│   │   └── UserQuizView.tsx      # Trắc nghiệm tự kiểm tra kiến thức môn AI
+│   └── views/                    # Phân hệ Kỹ Thuật Viên
+│       ├── DashboardView.tsx     # Thống kê KPI & Biểu đồ token histogram
+│       ├── DocumentsView.tsx     # Quản lý tài liệu & đối soát Markdown MinerU
+│       ├── ChunkingStudioView.tsx# Trực quan hóa Chunking TỐI GIẢN & DỄ NHÌN
+│       └── ExportView.tsx        # Kiểm định chất lượng & Xuất file JSONL
 ├── types/index.ts
 ├── data/mockData.json
 └── App.tsx
@@ -29,7 +27,7 @@ src/
 
 ---
 
-## 2. Chiến Lược Hai Chế Độ Người Dùng (Dual-Persona Mode Switcher)
-- Ở trên cùng có một nút chuyển đổi nổi bật:
-  - 👤 **Người Dùng Thử (AI Knowledge Hub):** Mặc định cho sinh viên, giảng viên muốn trải nghiệm hỏi đáp với kho sách.
-  - 🛠️ **Kỹ Thuật Viên (Dataset Studio):** Dành cho admin muốn theo dõi bóc tách MinerU, chia chunking, kiểm định và xuất dataset.
+## 2. Triết Lý Thiết Kế Trực Quan Hóa Tối Giản (Minimalist Visualizer Philosophy)
+- **Loại bỏ bố cục 3 cột cứng nhắc:** Trước đây 3 cột khiến khung đọc văn bản bị bóp nghẹt. Đã chuyển sang **khung đọc căn giữa rộng rãi** với thanh điều khiển ngang phía trên.
+- **Phân tách Chunk tinh tế:** Thay vì dùng viền khung đứt nét nặng nề, sử dụng **viền màu chỉ thị mỏng bên trái (Accent Left Border)** kết hợp nền dịu mắt và nhãn thông số nhỏ gọn (`Chunk #12 • Trang 45-46 • 138 tk`).
+- **Ngăn kéo Metadata khi cần (On-demand Slide Drawer):** Nhấp vào chunk thì thông số mới trượt ra từ bên phải, khi đóng lại sẽ trả về 100% không gian đọc thoáng đãng.
