@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  GraduationCap, 
-  CheckCircle2, 
-  XCircle, 
-  BookOpen, 
-  RotateCcw,
-  Trophy
+  RotateCcw
 } from 'lucide-react';
 import mockData from '../../data/mockData.json';
 
@@ -15,7 +10,7 @@ export const UserQuizView: React.FC = () => {
   const [showResults, setShowResults] = useState<Record<string, boolean>>({});
 
   const handleSelectOption = (questionId: string, optionIndex: number) => {
-    if (showResults[questionId]) return; // Don't allow changing after answered
+    if (showResults[questionId]) return;
     setSelectedAnswers(prev => ({ ...prev, [questionId]: optionIndex }));
     setShowResults(prev => ({ ...prev, [questionId]: true }));
   };
@@ -29,52 +24,46 @@ export const UserQuizView: React.FC = () => {
   const totalCorrect = sampleQuiz.filter(q => selectedAnswers[q.id] === q.correctAnswerIndex).length;
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper" style={{ maxWidth: '850px', margin: '0 auto', gap: '22px' }}>
       {/* Header */}
       <div className="page-header">
         <div>
           <h2 className="page-title">
-            <GraduationCap size={28} color="var(--accent-emerald)" />
-            Tự Ôn Tập & Kiểm Tra Kiến Thức Môn AI (Self-Check Quiz)
+            Tự Ôn Tập Trắc Nghiệm Môn AI
           </h2>
           <p className="page-desc">
-            Các câu hỏi trắc nghiệm được trích xuất trực tiếp từ các đoạn phân đoạn (Chunks) trong kho giáo trình.
+            Câu hỏi đối soát kiến thức dựa trên các phân đoạn tri thức trong giáo trình chuẩn hóa.
           </p>
         </div>
 
         {/* Score & Reset Header */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div 
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '8px 16px',
-              backgroundColor: 'rgba(16, 185, 129, 0.12)',
-              border: '1px solid var(--accent-emerald)',
+              padding: '6px 12px',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: 'var(--radius-md)',
-              fontSize: '13px'
+              fontSize: '12.5px',
+              color: 'var(--text-secondary)'
             }}
           >
-            <Trophy size={16} color="var(--accent-emerald)" />
-            <span style={{ color: '#fff', fontWeight: 600 }}>
-              Kết quả: {totalCorrect} / {sampleQuiz.length} câu đúng ({totalAnswered} đã làm)
-            </span>
+            Đúng: <strong style={{ color: 'var(--text-primary)' }}>{totalCorrect}</strong> / {sampleQuiz.length} câu ({totalAnswered} đã làm)
           </div>
 
           <button
             onClick={handleReset}
             className="btn btn-secondary"
-            style={{ fontSize: '13px', padding: '8px 14px' }}
+            style={{ fontSize: '12.5px', padding: '6px 12px' }}
           >
-            <RotateCcw size={15} />
-            <span>Làm lại từ đầu</span>
+            <RotateCcw size={13} />
+            <span>Làm lại</span>
           </button>
         </div>
       </div>
 
       {/* Quiz Questions List */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {sampleQuiz.map((item, qIdx) => {
           const isAnswered = showResults[item.id];
           const chosenOption = selectedAnswers[item.id];
@@ -87,62 +76,44 @@ export const UserQuizView: React.FC = () => {
               style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '16px',
-                border: isAnswered 
-                  ? (isCorrect ? '1px solid var(--accent-emerald)' : '1px solid var(--accent-rose)') 
-                  : '1px solid var(--border-subtle)',
-                transition: 'all 0.2s ease'
+                gap: '14px',
+                padding: '20px'
               }}
             >
               {/* Question Header */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span 
-                    style={{ 
-                      fontSize: '12px', 
-                      fontWeight: 700, 
-                      color: '#fff', 
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)', 
-                      padding: '3px 9px', 
-                      borderRadius: '4px' 
-                    }}
-                  >
-                    Câu #{qIdx + 1}
-                  </span>
-                  <span className="badge badge-cyan" style={{ fontSize: '11px' }}>
-                    {item.topicTitle}
-                  </span>
-                </div>
+                <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+                  Câu {qIdx + 1} • {item.topicTitle}
+                </span>
 
                 {isAnswered && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12.5px', fontWeight: 600, color: isCorrect ? 'var(--accent-emerald)' : 'var(--accent-rose)' }}>
-                    {isCorrect ? <CheckCircle2 size={16} /> : <XCircle size={16} />}
-                    <span>{isCorrect ? 'Chính xác (+1 điểm)' : 'Chưa chính xác'}</span>
-                  </div>
+                  <span style={{ fontSize: '12px', fontWeight: 500, color: isCorrect ? '#34d399' : '#f87171' }}>
+                    {isCorrect ? 'Chính xác' : 'Chưa đúng'}
+                  </span>
                 )}
               </div>
 
               {/* Question Title */}
-              <h3 style={{ fontSize: '15.5px', fontWeight: 600, color: '#fff', lineHeight: 1.5 }}>
+              <h3 style={{ fontSize: '14.5px', fontWeight: 500, color: 'var(--text-primary)', lineHeight: 1.6 }}>
                 {item.question}
               </h3>
 
               {/* Options List */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '8px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '6px' }}>
                 {item.options.map((opt, optIdx) => {
                   let optBg = 'var(--bg-input)';
                   let optBorder = 'var(--border-subtle)';
-                  let optColor = 'var(--text-main)';
+                  let optColor = 'var(--text-secondary)';
 
                   if (isAnswered) {
                     if (optIdx === item.correctAnswerIndex) {
-                      optBg = 'rgba(16, 185, 129, 0.15)';
-                      optBorder = 'var(--accent-emerald)';
+                      optBg = 'rgba(16, 185, 129, 0.08)';
+                      optBorder = 'rgba(16, 185, 129, 0.3)';
                       optColor = '#34d399';
                     } else if (optIdx === chosenOption) {
-                      optBg = 'rgba(244, 63, 94, 0.15)';
-                      optBorder = 'var(--accent-rose)';
-                      optColor = '#fb7185';
+                      optBg = 'rgba(239, 68, 68, 0.08)';
+                      optBorder = 'rgba(239, 68, 68, 0.3)';
+                      optColor = '#f87171';
                     }
                   }
 
@@ -152,43 +123,43 @@ export const UserQuizView: React.FC = () => {
                       disabled={isAnswered}
                       onClick={() => handleSelectOption(item.id, optIdx)}
                       style={{
-                        padding: '12px 16px',
-                        borderRadius: 'var(--radius-md)',
+                        padding: '10px 14px',
+                        borderRadius: 'var(--radius-sm)',
                         backgroundColor: optBg,
                         border: `1px solid ${optBorder}`,
                         color: optColor,
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '12px',
-                        fontSize: '13.5px',
+                        gap: '10px',
+                        fontSize: '13px',
                         cursor: isAnswered ? 'default' : 'pointer',
                         textAlign: 'left',
-                        transition: 'all 0.15s ease'
+                        transition: 'border-color 0.15s ease'
                       }}
                       onMouseEnter={(e) => {
                         if (!isAnswered) {
-                          e.currentTarget.style.borderColor = 'var(--accent-cyan)';
-                          e.currentTarget.style.backgroundColor = 'rgba(6, 182, 212, 0.08)';
+                          e.currentTarget.style.borderColor = 'var(--border-medium)';
+                          e.currentTarget.style.color = 'var(--text-primary)';
                         }
                       }}
                       onMouseLeave={(e) => {
                         if (!isAnswered) {
                           e.currentTarget.style.borderColor = 'var(--border-subtle)';
-                          e.currentTarget.style.backgroundColor = 'var(--bg-input)';
+                          e.currentTarget.style.color = 'var(--text-secondary)';
                         }
                       }}
                     >
                       <span 
                         style={{ 
-                          width: '24px', 
-                          height: '24px', 
-                          borderRadius: '50%', 
-                          backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                          width: '20px', 
+                          height: '20px', 
+                          borderRadius: '3px', 
+                          backgroundColor: 'rgba(255, 255, 255, 0.05)',
                           display: 'flex', 
                           alignItems: 'center', 
                           justifyContent: 'center',
                           fontSize: '11px',
-                          fontWeight: 700,
+                          color: 'var(--text-muted)',
                           flexShrink: 0
                         }}
                       >
@@ -200,30 +171,26 @@ export const UserQuizView: React.FC = () => {
                 })}
               </div>
 
-              {/* Explanation & Source Citation (Revealed after answered) */}
+              {/* Explanation & Source Citation */}
               {isAnswered && (
                 <div 
                   style={{
-                    backgroundColor: 'rgba(15, 23, 42, 0.8)',
-                    padding: '16px',
-                    borderRadius: 'var(--radius-md)',
+                    backgroundColor: 'var(--bg-input)',
+                    padding: '14px',
+                    borderRadius: 'var(--radius-sm)',
                     border: '1px solid var(--border-subtle)',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '10px'
+                    gap: '6px',
+                    fontSize: '12.5px'
                   }}
                 >
-                  <div style={{ fontSize: '13px', color: '#cbd5e1', lineHeight: '1.6' }}>
-                    <strong>Giải thích chi tiết:</strong> {item.explanation}
+                  <div style={{ color: 'var(--text-primary)', lineHeight: '1.6' }}>
+                    <strong>Giải thích:</strong> {item.explanation}
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: 'var(--accent-cyan)', paddingTop: '8px', borderTop: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                    <BookOpen size={14} />
-                    <span>Dẫn chứng từ: <strong>{item.sourceCitation.documentTitle}</strong> (Trang {item.sourceCitation.pageNumber})</span>
-                  </div>
-
-                  <div style={{ fontSize: '12.5px', color: 'var(--text-dim)', fontStyle: 'italic', paddingLeft: '8px', borderLeft: '2px solid var(--accent-cyan)' }}>
-                    "{item.sourceCitation.snippet}"
+                  <div style={{ color: 'var(--text-muted)', fontSize: '11.5px', marginTop: '4px' }}>
+                    Nguồn: {item.sourceCitation.documentTitle} — Trang {item.sourceCitation.pageNumber}
                   </div>
                 </div>
               )}

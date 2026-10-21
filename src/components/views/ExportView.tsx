@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import { 
-  DownloadCloud, 
-  CheckCircle, 
-  AlertTriangle, 
   FileJson, 
   Search, 
-  Sigma, 
-  Table, 
-  Sparkles,
-  ArrowDownToLine
+  ArrowDownToLine,
+  Check
 } from 'lucide-react';
 import mockData from '../../data/mockData.json';
 
@@ -33,7 +28,7 @@ export const ExportView: React.FC = () => {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
 
-    setExportedStatus(`Đã tải xuống thành công tệp ${fileName}!`);
+    setExportedStatus(`Đã xuất tệp ${fileName}`);
     setTimeout(() => setExportedStatus(null), 3000);
   };
 
@@ -77,11 +72,10 @@ export const ExportView: React.FC = () => {
       <div className="page-header">
         <div>
           <h2 className="page-title">
-            <DownloadCloud size={28} color="var(--accent-cyan)" />
-            Kiểm Định Chất Lượng & Xuất Dữ Liệu (Export Hub)
+            Kiểm Định & Xuất Dữ Liệu
           </h2>
           <p className="page-desc">
-            Rà soát tiêu chuẩn chất lượng các phân đoạn và tải về các file dữ liệu chuẩn hóa phục vụ huấn luyện / nạp RAG.
+            Tải về các tệp dữ liệu phân đoạn chuẩn hóa phục vụ huấn luyện mô hình hoặc nạp Vector Database.
           </p>
         </div>
         {exportedStatus && (
@@ -89,57 +83,53 @@ export const ExportView: React.FC = () => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
-              padding: '8px 16px',
-              borderRadius: 'var(--radius-md)',
-              backgroundColor: 'rgba(16, 185, 129, 0.15)',
-              border: '1px solid var(--accent-emerald)',
+              gap: '6px',
+              padding: '6px 12px',
+              borderRadius: 'var(--radius-sm)',
+              backgroundColor: 'rgba(16, 185, 129, 0.1)',
+              border: '1px solid rgba(16, 185, 129, 0.3)',
               color: '#34d399',
-              fontSize: '13px'
+              fontSize: '12.5px'
             }}
           >
-            <CheckCircle size={16} />
+            <Check size={14} />
             <span>{exportedStatus}</span>
           </div>
         )}
       </div>
 
       {/* 3 Download Action Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
-        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '14px', border: '1px solid rgba(6, 182, 212, 0.3)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: 'var(--radius-md)', backgroundColor: 'rgba(6, 182, 212, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-cyan)' }}>
-              <FileJson size={20} />
-            </div>
+            <FileJson size={18} color="var(--text-muted)" />
             <div>
-              <div style={{ fontSize: '15px', fontWeight: 700, color: '#fff' }}>chunks.jsonl</div>
-              <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>Dataset phân đoạn chính</div>
+              <div style={{ fontSize: '14.5px', fontWeight: 600, color: 'var(--text-primary)' }}>chunks.jsonl</div>
+              <div style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>Dataset phân đoạn chính</div>
             </div>
           </div>
-          <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
-            Chứa danh sách toàn bộ các chunk văn bản, số token và metadata vị trí trang để nhúng (Embedding) vào Vector DB.
+          <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+            Chứa danh sách toàn bộ các chunk văn bản, số token và metadata vị trí trang để nhúng vào Vector DB.
           </p>
           <button 
             onClick={handleDownloadChunksJsonl}
             className="btn btn-primary" 
             style={{ marginTop: 'auto' }}
           >
-            <ArrowDownToLine size={16} />
+            <ArrowDownToLine size={14} />
             <span>Tải chunks.jsonl</span>
           </button>
         </div>
 
-        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: 'var(--radius-md)', backgroundColor: 'rgba(99, 102, 241, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-indigo)' }}>
-              <FileJson size={20} />
-            </div>
+            <FileJson size={18} color="var(--text-muted)" />
             <div>
-              <div style={{ fontSize: '15px', fontWeight: 700, color: '#fff' }}>parents.jsonl</div>
-              <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>Chunk cha cấp bối cảnh</div>
+              <div style={{ fontSize: '14.5px', fontWeight: 600, color: 'var(--text-primary)' }}>parents.jsonl</div>
+              <div style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>Chunk cha cấp bối cảnh</div>
             </div>
           </div>
-          <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+          <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
             Dành cho mô hình Parent-Child Retrieval (tìm kiếm chunk con chi tiết nhưng lấy bối cảnh chunk cha để trả lời).
           </p>
           <button 
@@ -147,22 +137,20 @@ export const ExportView: React.FC = () => {
             className="btn btn-secondary" 
             style={{ marginTop: 'auto' }}
           >
-            <ArrowDownToLine size={16} />
+            <ArrowDownToLine size={14} />
             <span>Tải parents.jsonl</span>
           </button>
         </div>
 
-        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '38px', height: '38px', borderRadius: 'var(--radius-md)', backgroundColor: 'rgba(16, 185, 129, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-emerald)' }}>
-              <Sparkles size={20} />
-            </div>
+            <FileJson size={18} color="var(--text-muted)" />
             <div>
-              <div style={{ fontSize: '15px', fontWeight: 700, color: '#fff' }}>chunk_stats.json</div>
-              <div style={{ fontSize: '12px', color: 'var(--text-dim)' }}>Báo cáo thông số kỹ thuật</div>
+              <div style={{ fontSize: '14.5px', fontWeight: 600, color: 'var(--text-primary)' }}>chunk_stats.json</div>
+              <div style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>Báo cáo thông số kỹ thuật</div>
             </div>
           </div>
-          <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+          <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
             Chứa thông số phân bổ token, số công thức, bảng biểu và báo cáo xác thực chất lượng cho báo cáo đồ án.
           </p>
           <button 
@@ -170,60 +158,50 @@ export const ExportView: React.FC = () => {
             className="btn btn-secondary" 
             style={{ marginTop: 'auto' }}
           >
-            <ArrowDownToLine size={16} />
+            <ArrowDownToLine size={14} />
             <span>Tải chunk_stats.json</span>
           </button>
         </div>
       </div>
 
-      {/* Quality Inspection Checklist */}
+      {/* Quality Validation Summary */}
       <div className="card">
         <div className="card-title">
-          <CheckCircle size={18} color="var(--accent-emerald)" />
-          <span>Báo Cáo Kiểm Định Chất Lượng (Quality Validation)</span>
+          Báo Cáo Kiểm Tra Tiêu Chuẩn Dataset
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px', backgroundColor: 'rgba(16, 185, 129, 0.08)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
-            <CheckCircle size={18} color="var(--accent-emerald)" />
-            <div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: '#fff' }}>0 Chunk Bị Rỗng</div>
-              <div style={{ fontSize: '11px', color: 'var(--text-dim)' }}>100% chunks có nội dung hợp lệ</div>
-            </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px' }}>
+          <div style={{ padding: '12px 14px', backgroundColor: 'var(--bg-input)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
+            <div style={{ fontSize: '13px', fontWeight: 500, color: 'var(--text-primary)' }}>0 Chunk Rỗng</div>
+            <div style={{ fontSize: '11.5px', color: 'var(--text-muted)', marginTop: '2px' }}>100% chunks có dữ liệu hợp lệ</div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px', backgroundColor: 'rgba(16, 185, 129, 0.08)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
-            <CheckCircle size={18} color="var(--accent-emerald)" />
-            <div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: '#fff' }}>100% Khớp Metadata</div>
-              <div style={{ fontSize: '11px', color: 'var(--text-dim)' }}>Có đủ số trang & đường dẫn mục lục</div>
-            </div>
+          <div style={{ padding: '12px 14px', backgroundColor: 'var(--bg-input)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
+            <div style={{ fontSize: '13px', fontWeight: 500, color: 'var(--text-primary)' }}>100% Metadata Vị Trí</div>
+            <div style={{ fontSize: '11.5px', color: 'var(--text-muted)', marginTop: '2px' }}>Có đủ số trang và đường dẫn mục lục</div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px', backgroundColor: 'rgba(245, 158, 11, 0.08)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(245, 158, 11, 0.2)' }}>
-            <AlertTriangle size={18} color="var(--accent-amber)" />
-            <div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: '#fff' }}>Cảnh Báo Độ Dài Nhỏ</div>
-              <div style={{ fontSize: '11px', color: 'var(--text-dim)' }}>2 chunks ngắn dưới 50 tokens</div>
-            </div>
+          <div style={{ padding: '12px 14px', backgroundColor: 'var(--bg-input)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
+            <div style={{ fontSize: '13px', fontWeight: 500, color: 'var(--text-primary)' }}>Độ Dài Trung Bình</div>
+            <div style={{ fontSize: '11.5px', color: 'var(--text-muted)', marginTop: '2px' }}>156 tokens / chunk</div>
           </div>
         </div>
       </div>
 
-      {/* Chunks Data Table */}
-      <div className="card">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
+      {/* Chunks Table */}
+      <div className="card" style={{ padding: '20px 24px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '12px' }}>
           <div className="card-title" style={{ marginBottom: 0 }}>
-            <span>Danh Sách Phân Đoạn Dataset ({filteredChunks.length})</span>
+            Danh Sách Phân Đoạn ({filteredChunks.length})
           </div>
-          <div style={{ position: 'relative', width: '280px' }}>
-            <Search size={15} style={{ position: 'absolute', left: '10px', top: '11px', color: 'var(--text-dim)' }} />
+          <div style={{ position: 'relative', width: '260px' }}>
+            <Search size={14} style={{ position: 'absolute', left: '10px', top: '10px', color: 'var(--text-muted)' }} />
             <input
               type="text"
-              placeholder="Tìm trong nội dung chunk..."
+              placeholder="Tìm theo nội dung..."
               value={filterQuery}
               onChange={(e) => setFilterQuery(e.target.value)}
               className="input-control"
-              style={{ paddingLeft: '32px', fontSize: '13px', padding: '7px 12px 7px 32px' }}
+              style={{ paddingLeft: '30px', fontSize: '12.5px', padding: '6px 10px 6px 30px' }}
             />
           </div>
         </div>
@@ -232,43 +210,30 @@ export const ExportView: React.FC = () => {
           <table className="data-table">
             <thead>
               <tr>
-                <th>Chunk ID</th>
+                <th>Mã Chunk</th>
                 <th>Tài liệu nguồn</th>
-                <th>Nội dung trích đoạn</th>
-                <th>Token</th>
-                <th>Trang</th>
-                <th>Đặc tính</th>
+                <th>Nội dung</th>
+                <th>Số token</th>
+                <th>Vị trí trang</th>
               </tr>
             </thead>
             <tbody>
               {filteredChunks.map((c) => (
                 <tr key={c.id}>
-                  <td style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--accent-cyan)' }}>
+                  <td style={{ fontFamily: 'var(--font-mono)', fontSize: '11.5px', color: 'var(--text-secondary)' }}>
                     {c.id}
                   </td>
-                  <td style={{ fontWeight: 500, fontSize: '13px' }}>
+                  <td style={{ fontSize: '12.5px' }}>
                     {c.documentId}
                   </td>
-                  <td style={{ maxWidth: '420px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '13px', color: 'var(--text-main)' }}>
+                  <td style={{ maxWidth: '440px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '13px' }}>
                     {c.content}
                   </td>
-                  <td>
-                    <span style={{ fontWeight: 600, color: 'var(--accent-emerald)' }}>{c.tokenCount}</span>
+                  <td style={{ fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
+                    {c.tokenCount}
                   </td>
-                  <td>Trang {c.metadata.pageStart}-{c.metadata.pageEnd}</td>
-                  <td>
-                    <div style={{ display: 'flex', gap: '6px' }}>
-                      {c.metadata.hasEquation && (
-                        <span className="badge badge-purple" style={{ fontSize: '10.5px' }}>
-                          <Sigma size={10} /> Math
-                        </span>
-                      )}
-                      {c.metadata.hasTable && (
-                        <span className="badge badge-amber" style={{ fontSize: '10.5px' }}>
-                          <Table size={10} /> Table
-                        </span>
-                      )}
-                    </div>
+                  <td style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+                    Trang {c.metadata.pageStart}–{c.metadata.pageEnd}
                   </td>
                 </tr>
               ))}
