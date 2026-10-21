@@ -85,7 +85,7 @@ export const Topbar: React.FC<TopbarProps> = ({
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '6px',
+            gap: '8px',
             padding: '6px 14px',
             borderRadius: '9999px',
             border: 'none',
@@ -99,7 +99,7 @@ export const Topbar: React.FC<TopbarProps> = ({
           }}
         >
           <UserCheck size={14} />
-          <span>👤 Người Dùng Thử</span>
+          <span>Người Dùng Thử</span>
         </button>
 
         <button
@@ -107,7 +107,7 @@ export const Topbar: React.FC<TopbarProps> = ({
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '6px',
+            gap: '8px',
             padding: '6px 14px',
             borderRadius: '9999px',
             border: 'none',
@@ -121,7 +121,7 @@ export const Topbar: React.FC<TopbarProps> = ({
           }}
         >
           <Wrench size={14} />
-          <span>🛠️ Kỹ Thuật Viên</span>
+          <span>Kỹ Thuật Viên</span>
         </button>
       </div>
 

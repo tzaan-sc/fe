@@ -185,7 +185,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           }}
         >
           <div style={{ color: '#fff', fontWeight: 600, marginBottom: '4px' }}>
-            {personaMode === 'USER' ? '💡 Chế độ Học viên' : '⚙️ Chế độ Kỹ thuật'}
+            {personaMode === 'USER' ? 'Chế độ Học viên' : 'Chế độ Kỹ thuật'}
           </div>
           <div style={{ color: 'var(--text-muted)', fontSize: '11px', lineHeight: '1.4' }}>
             {personaMode === 'USER' 

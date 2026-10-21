@@ -1,4 +1,4 @@
-# 📑 QUY CHUẨN KẾT NỐI API (API CONTRACT)
+# QUY CHUẨN KẾT NỐI API (API CONTRACT)
 **Dự án:** RAG Dataset Builder & AI Knowledge Assistant  
 **Hệ thống:** Frontend $\leftrightarrow$ Backend / Database  
 

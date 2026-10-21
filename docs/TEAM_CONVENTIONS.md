@@ -1,4 +1,4 @@
-# 🤝 QUY ƯỚC LÀM VIỆC NHÓM (TEAM CONVENTIONS)
+# QUY ƯỚC LÀM VIỆC NHÓM (TEAM CONVENTIONS)
 **Dự án:** RAG Dataset Builder Studio  
 **Áp dụng:** Frontend & Backend & Database  
 

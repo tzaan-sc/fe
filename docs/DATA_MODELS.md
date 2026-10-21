@@ -1,4 +1,4 @@
-# 📐 ĐẶC TẢ KIỂU DỮ LIỆU & SCHEMA (DATA MODELS)
+# ĐẶC TẢ KIỂU DỮ LIỆU & SCHEMA (DATA MODELS)
 **Dự án:** RAG Dataset Builder & AI Knowledge Assistant  
 
 ---
