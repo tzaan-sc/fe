@@ -1,0 +1,168 @@
+{
+  "analyticsOverview": {
+    "totalDocuments": 48,
+    "totalPages": 1820,
+    "totalChunks": 5640,
+    "totalMathFormulas": 342,
+    "totalTables": 185,
+    "totalImages": 410
+  },
+  "categoryStats": [
+    { "category": "BK", "categoryName": "Sách tham khảo (Books)", "documentCount": 12, "chunkCount": 1950, "percentage": 34.5 },
+    { "category": "TX", "categoryName": "Giáo trình (Textbooks)", "documentCount": 10, "chunkCount": 1420, "percentage": 25.2 },
+    { "category": "PP", "categoryName": "Bài báo KH (Papers)", "documentCount": 14, "chunkCount": 980, "percentage": 17.4 },
+    { "category": "SL", "categoryName": "Slide bài giảng (Slides)", "documentCount": 6, "chunkCount": 510, "percentage": 9.0 },
+    { "category": "UM", "categoryName": "ĐH Quốc tế (MIT, Berkeley)", "documentCount": 6, "chunkCount": 780, "percentage": 13.9 }
+  ],
+  "chunkSizeHistogram": [
+    { "rangeLabel": "0 - 128", "minTokens": 0, "maxTokens": 128, "count": 210 },
+    { "rangeLabel": "129 - 256", "minTokens": 129, "maxTokens": 256, "count": 860 },
+    { "rangeLabel": "257 - 512", "minTokens": 257, "maxTokens": 512, "count": 2840 },
+    { "rangeLabel": "513 - 1024", "minTokens": 513, "maxTokens": 1024, "count": 1520 },
+    { "rangeLabel": "> 1024", "minTokens": 1025, "maxTokens": 2048, "count": 210 }
+  ],
+  "documents": [
+    {
+      "id": "doc_001",
+      "fileName": "EN_BK_001_AI Agents in Depth.pdf",
+      "category": "BK",
+      "language": "EN",
+      "filePath": "data/01_raw/01_sach/EN_BK_001_AI Agents in Depth.pdf",
+      "markdownPath": "data/mineru/01_sach/EN_BK_001_AI Agents in Depth/output.md",
+      "structuredJsonPath": "data/mineru/01_sach/EN_BK_001_AI Agents in Depth/structured_content.json",
+      "pageCount": 320,
+      "fileSizeBytes": 15420000,
+      "status": "COMPLETED",
+      "createdAt": "2026-10-15T08:30:00Z",
+      "updatedAt": "2026-10-15T09:12:00Z"
+    },
+    {
+      "id": "doc_002",
+      "fileName": "VI_TX_001_Tri tue nhan tao he chuyen gia.pdf",
+      "category": "TX",
+      "language": "VI",
+      "filePath": "data/01_raw/02_giao-trinh/VI_TX_001_Tri tue nhan tao he chuyen gia.pdf",
+      "markdownPath": "data/mineru/02_giao-trinh/VI_TX_001/output.md",
+      "pageCount": 215,
+      "fileSizeBytes": 8750000,
+      "status": "COMPLETED",
+      "createdAt": "2026-10-16T10:15:00Z",
+      "updatedAt": "2026-10-16T10:45:00Z"
+    },
+    {
+      "id": "doc_003",
+      "fileName": "EN_PP_004_Attention Is All You Need.pdf",
+      "category": "PP",
+      "language": "EN",
+      "filePath": "data/01_raw/03_bai-bao-khoa-hoc/EN_PP_004_Attention Is All You Need.pdf",
+      "markdownPath": "data/mineru/03_bai-bao-khoa-hoc/EN_PP_004/output.md",
+      "pageCount": 15,
+      "fileSizeBytes": 2100000,
+      "status": "COMPLETED",
+      "createdAt": "2026-10-18T14:20:00Z",
+      "updatedAt": "2026-10-18T14:25:00Z"
+    },
+    {
+      "id": "doc_004",
+      "fileName": "EN_UM_UCB-2024_CS188_Lecture_Search.pdf",
+      "category": "UM",
+      "language": "EN",
+      "universityTag": "UCB",
+      "filePath": "data/01_raw/09_tai-lieu-dai-hoc-quoc-te/uc-berkeley/EN_UM_UCB-2024_CS188_Lecture_Search.pdf",
+      "markdownPath": "data/mineru/09_tai-lieu-dai-hoc-quoc-te/uc-berkeley/output.md",
+      "pageCount": 42,
+      "fileSizeBytes": 5400000,
+      "status": "COMPLETED",
+      "createdAt": "2026-10-19T09:00:00Z",
+      "updatedAt": "2026-10-19T09:10:00Z"
+    }
+  ],
+  "sampleChunks": [
+    {
+      "id": "chk_1001",
+      "documentId": "doc_001",
+      "chunkIndex": 12,
+      "content": "### 3.2 Heuristic Search Strategies: The A* Algorithm\n\nThe most widely known form of best-first search is called **A* search**. It evaluates nodes by combining $g(n)$, the cost to reach the node, and $h(n)$, the cost to get from the node to the goal:\n\n$$f(n) = g(n) + h(n)$$\n\nSince $g(n)$ gives the path cost from the start node to node $n$, and $h(n)$ is the estimated cost of the cheapest path from $n$ to the goal, we have $f(n) =$ estimated cost of the cheapest solution through $n$.",
+      "tokenCount": 138,
+      "characterCount": 492,
+      "metadata": {
+        "pageStart": 45,
+        "pageEnd": 46,
+        "sectionPath": ["Chapter 3: Solving Problems by Searching", "3.2 Informed Search Strategies", "A* Search"],
+        "headingLevel": 3,
+        "hasTable": false,
+        "hasEquation": true,
+        "imageRefs": []
+      },
+      "createdAt": "2026-10-15T09:12:00Z"
+    },
+    {
+      "id": "chk_1002",
+      "documentId": "doc_001",
+      "chunkIndex": 13,
+      "content": "### Conditions for Optimality: Admissibility and Consistency\n\nThe first condition we require for optimality is that $h(n)$ be an **admissible heuristic**. An admissible heuristic is one that never overestimates the cost to reach the goal.\n\n| Property | Tree Search Requirement | Graph Search Requirement |\n| :--- | :--- | :--- |\n| Optimality Condition | Admissible ($h(n) \\le h^*(n)$) | Consistent ($h(n) \\le c(n, a, n') + h(n')$) |\n| Completeness | Yes (if step cost $\\ge \\epsilon > 0$) | Yes |\n| Time Complexity | $O(b^d)$ | $O(b^d)$ |",
+      "tokenCount": 175,
+      "characterCount": 580,
+      "metadata": {
+        "pageStart": 46,
+        "pageEnd": 47,
+        "sectionPath": ["Chapter 3: Solving Problems by Searching", "3.2 Informed Search Strategies", "Optimality"],
+        "headingLevel": 3,
+        "hasTable": true,
+        "hasEquation": true,
+        "imageRefs": []
+      },
+      "createdAt": "2026-10-15T09:12:00Z"
+    }
+  ],
+  "sampleRetrievalTest": {
+    "query": "Thuật toán A* là gì và điều kiện tối ưu?",
+    "executionTimeMs": 42,
+    "results": [
+      {
+        "documentTitle": "EN_BK_001_AI Agents in Depth.pdf",
+        "similarityScore": 0.942,
+        "chunk": {
+          "id": "chk_1001",
+          "documentId": "doc_001",
+          "chunkIndex": 12,
+          "content": "### 3.2 Heuristic Search Strategies: The A* Algorithm\n\nThe most widely known form of best-first search is called **A* search**. It evaluates nodes by combining $g(n)$, the cost to reach the node, and $h(n)$, the cost to get from the node to the goal:\n\n$$f(n) = g(n) + h(n)$$",
+          "tokenCount": 138,
+          "characterCount": 492,
+          "metadata": {
+            "pageStart": 45,
+            "pageEnd": 46,
+            "sectionPath": ["Chapter 3: Solving Problems by Searching", "3.2 Informed Search Strategies", "A* Search"],
+            "headingLevel": 3,
+            "hasTable": false,
+            "hasEquation": true,
+            "imageRefs": []
+          },
+          "createdAt": "2026-10-15T09:12:00Z"
+        }
+      },
+      {
+        "documentTitle": "EN_BK_001_AI Agents in Depth.pdf",
+        "similarityScore": 0.887,
+        "chunk": {
+          "id": "chk_1002",
+          "documentId": "doc_001",
+          "chunkIndex": 13,
+          "content": "### Conditions for Optimality: Admissibility and Consistency\n\nThe first condition we require for optimality is that $h(n)$ be an **admissible heuristic**.",
+          "tokenCount": 175,
+          "characterCount": 580,
+          "metadata": {
+            "pageStart": 46,
+            "pageEnd": 47,
+            "sectionPath": ["Chapter 3: Solving Problems by Searching", "3.2 Informed Search Strategies", "Optimality"],
+            "headingLevel": 3,
+            "hasTable": true,
+            "hasEquation": true,
+            "imageRefs": []
+          },
+          "createdAt": "2026-10-15T09:12:00Z"
+        }
+      }
+    ]
+  }
+}
